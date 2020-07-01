@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Altair.Api\Altair.Api.csproj" />
     <ProjectReference Include="..\Altair.Dal\Altair.Dal.csproj" />
+    <ProjectReference Include="..\Stars.Api.Root\Stars.Api.Root.csproj" />
   </ItemGroup>
 
 </Project>

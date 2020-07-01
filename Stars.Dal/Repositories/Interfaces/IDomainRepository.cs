@@ -1,4 +1,5 @@
 ﻿using Stars.Dal.DomainModels.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Stars.Dal.Repositories.Interfaces
@@ -6,17 +7,34 @@ namespace Stars.Dal.Repositories.Interfaces
 	/// <summary>
 	/// Доменный репозиторий
 	/// </summary>
-	public interface IDomainRepository<TDomainEntity>
-		where TDomainEntity : class, IDomainEntity
+	public interface IDomainRepository<TDomainModel>
+		where TDomainModel : class, IDomainModel, new()
 	{
 		/// <summary>
-		/// Получить список всех доменных сущностей
+		/// Получить доменную модель по идентификатору
 		/// </summary>
-		Task<TDomainEntity[]> GetAllAsync();
+		Task<TDomainModel> GetByIdAsync(int domainModelId);
 
 		/// <summary>
-		/// Сохранить доменную сущность
+		/// Получить список всех доменных моделей
 		/// </summary>
-		Task SaveAsync(TDomainEntity domainEntity);
+		Task<TDomainModel[]> GetAllAsync();
+
+		/// <summary>
+		/// Сохранить доменную модель
+		/// </summary>
+		Task SaveAsync(TDomainModel domainModel);
+
+		/// <summary>
+		/// Сохранить доменные модели
+		/// </summary>
+		/// <returns>Количество созданных записей</returns>
+		Task<int> SaveListAsync(IEnumerable<TDomainModel> domainModels);
+
+		/// <summary>
+		/// Удалить доменную модель по идентификатору
+		/// </summary>
+		/// <returns>Была ли доменная модель успешно удалена</returns>
+		Task<bool> DeleteByIdAsync(int domainModelId);
 	}
 }

@@ -1,12 +1,11 @@
 using Altair.Api.Root.Modules;
 using Altair.Core.Modules;
 using Altair.Dal.Modules;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Stars.Api.Root.Extensions;
 using Stars.Core.Modules;
 
 namespace Altair.Api.Root
@@ -15,7 +14,6 @@ namespace Altair.Api.Root
 	{
 		public void ConfigureServices(IServiceCollection services)
 		{
-			// Регистрация зависимостей
 			services
 				.AddLoggerModule()
 				.AddAltairMapperModule()
@@ -26,15 +24,9 @@ namespace Altair.Api.Root
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			// Проверка конфигурации маппера
-			var mapper = app.ApplicationServices.GetService<IMapper>();
-			mapper.ConfigurationProvider.AssertConfigurationIsValid();
-
-			// Стандартные настройки
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
+			app
+				.ValidateMapperConfiguration()
+				.AddExceptionHandling();
 
 			app.UseRouting();
 

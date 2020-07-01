@@ -5,11 +5,8 @@ namespace Stars.Dal.DomainModels
 	/// <summary>
 	/// Базовый класс для доменной модели
 	/// </summary>
-	public abstract class BaseDomainModel : IDomainEntity
+	public abstract class BaseDomainModel : IDomainModel
 	{
-		/// <summary>
-		/// Идентификатор записи в базе данных
-		/// </summary>
 		public int Id { get; set; }
 	}
 }
