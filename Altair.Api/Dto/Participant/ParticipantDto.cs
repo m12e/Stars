@@ -1,4 +1,4 @@
-﻿namespace Altair.Api.Dto
+﻿namespace Altair.Api.Dto.Participant
 {
 	/// <summary>
 	/// DTO со всеми данными об участнике

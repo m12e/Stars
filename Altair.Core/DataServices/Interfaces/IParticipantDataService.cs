@@ -32,6 +32,11 @@ namespace Altair.Core.DataServices.Interfaces
 		Task<int> SaveListAsync(IEnumerable<ParticipantModel> participantModels);
 
 		/// <summary>
+		/// Обновить данные участника
+		/// </summary>
+		Task UpdateAsync(ParticipantModel participantModel);
+
+		/// <summary>
 		/// Удалить участника по идентификатору
 		/// </summary>
 		Task DeleteByIdAsync(int participantId);

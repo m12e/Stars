@@ -19,6 +19,9 @@ namespace Altair.Api.Root
 				.AddAltairMapperModule()
 				.AddAltairCoreModule()
 				.AddAltairDalModule()
+				.AddSwaggerGen();
+
+			services
 				.AddControllers();
 		}
 
@@ -26,6 +29,7 @@ namespace Altair.Api.Root
 		{
 			app
 				.ValidateMapperConfiguration()
+				.AddSwagger("Altair API v1")
 				.AddExceptionHandling();
 
 			app.UseRouting();
@@ -34,7 +38,7 @@ namespace Altair.Api.Root
 			{
 				endpoints.MapGet("/", async context =>
 				{
-					await context.Response.WriteAsync("It works!");
+					await context.Response.WriteAsync("Altair works!");
 				});
 
 				endpoints.MapControllers();

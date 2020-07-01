@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Stars.Api.Dto.Common;
 using Stars.Core.Exceptions;
+using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
 
 namespace Stars.Api.Root.Extensions
@@ -26,6 +28,21 @@ namespace Stars.Api.Root.Extensions
 		}
 
 		/// <summary>
+		/// Добавить Swagger
+		/// </summary>
+		public static IApplicationBuilder AddSwagger(this IApplicationBuilder app, string apiName)
+		{
+			app.UseSwagger();
+
+			app.UseSwaggerUI(options =>
+			{
+				options.SwaggerEndpoint("/swagger/v1/swagger.json", apiName);
+			});
+
+			return app;
+		}
+
+		/// <summary>
 		/// Добавить обработку исключений
 		/// </summary>
 		public static IApplicationBuilder AddExceptionHandling(this IApplicationBuilder app)
@@ -35,7 +52,11 @@ namespace Stars.Api.Root.Extensions
 				{
 					var exception = httpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;
 					var exceptionMessage = exception?.Message ?? "Unknown error";
-					var exceptionJson = JsonConvert.SerializeObject(new { error = exceptionMessage });
+					var exceptionDto = new ErrorMessageDto
+					{
+						ErrorMessage = exceptionMessage
+					};
+					var exceptionJson = exceptionDto.ToJson();
 
 					var logger = applicationBuilder.ApplicationServices.GetService<IStarsLogger>();
 					logger.Error(exceptionMessage);

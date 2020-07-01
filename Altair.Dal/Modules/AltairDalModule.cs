@@ -4,7 +4,7 @@ using Altair.Dal.DataServices;
 using Altair.Dal.DomainModels;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Dal.EntityFramework.Repositories;
-using Stars.Dal.Repositories.Interfaces;
+using Stars.Dal.EntityFramework.Repositories.Interfaces;
 
 namespace Altair.Dal.Modules
 {
@@ -18,7 +18,9 @@ namespace Altair.Dal.Modules
 
 			// Репозитории
 			services
-				.AddTransient<IDomainRepository<ParticipantDomainModel>, DomainRepository<ParticipantDomainModel, AltairDalContext>>();
+				.AddTransient<
+					IQueryableDomainRepository<ParticipantDomainModel>,
+					DomainRepository<ParticipantDomainModel, AltairDalContext>>();
 
 			// Data-сервисы
 			services

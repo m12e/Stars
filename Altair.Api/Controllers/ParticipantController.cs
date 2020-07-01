@@ -1,8 +1,9 @@
-﻿using Altair.Api.Dto;
+﻿using Altair.Api.Dto.Participant;
 using Altair.Core.DataServices.Interfaces;
 using Altair.Core.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Stars.Api.Dto.Common;
 using System.Threading.Tasks;
 
 namespace Altair.Api.Controllers
@@ -64,36 +65,54 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Сохранить участника
 		/// </summary>
-		/// <returns>Идентификатор созданной записи</returns>
 		[HttpPost("save")]
-		public async Task<int> SaveAsync(ParticipantBaseDto dto)
+		public async Task<RecordIdDto> SaveAsync(ParticipantBaseDto dto)
 		{
 			var model = _mapper.Map<ParticipantModel>(dto);
 			var recordId = await _participantService.SaveAsync(model);
 
-			return recordId;
+			return new RecordIdDto
+			{
+				RecordId = recordId
+			};
 		}
 
 		/// <summary>
 		/// Сохранить участников из переданного списка
 		/// </summary>
-		/// <returns>Количество созданных записей</returns>
 		[HttpPost("saveList")]
-		public async Task<int> SaveListAsync(ParticipantBaseDto[] dtoList)
+		public async Task<RecordCountDto> SaveListAsync(ParticipantBaseDto[] dtoList)
 		{
 			var modelList = _mapper.Map<ParticipantModel[]>(dtoList);
 			var recordCount = await _participantService.SaveListAsync(modelList);
 
-			return recordCount;
+			return new RecordCountDto
+			{
+				RecordCount = recordCount
+			};
+		}
+
+		/// <summary>
+		/// Обновить данные участника
+		/// </summary>
+		[HttpPost("update")]
+		public async Task<SuccessMessageDto> UpdateAsync(ParticipantDto dto)
+		{
+			var model = _mapper.Map<ParticipantModel>(dto);
+			await _participantService.UpdateAsync(model);
+
+			return new SuccessMessageDto();
 		}
 
 		/// <summary>
 		/// Удалить участника по идентификатору
 		/// </summary>
 		[HttpDelete("deleteById")]
-		public async Task DeleteByIdAsync(int participantId)
+		public async Task<SuccessMessageDto> DeleteByIdAsync(int participantId)
 		{
 			await _participantService.DeleteByIdAsync(participantId);
+
+			return new SuccessMessageDto();
 		}
 	}
 }

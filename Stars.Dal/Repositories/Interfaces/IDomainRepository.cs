@@ -23,13 +23,21 @@ namespace Stars.Dal.Repositories.Interfaces
 		/// <summary>
 		/// Сохранить доменную модель
 		/// </summary>
-		Task SaveAsync(TDomainModel domainModel);
+		/// <returns>Была ли доменная модель успешно сохранена</returns>
+		/// <remarks>Идентификатор записи сохраняется в исходной модели</remarks>
+		Task<bool> SaveAsync(TDomainModel domainModel);
 
 		/// <summary>
 		/// Сохранить доменные модели
 		/// </summary>
 		/// <returns>Количество созданных записей</returns>
 		Task<int> SaveListAsync(IEnumerable<TDomainModel> domainModels);
+
+		/// <summary>
+		/// Обновить данные доменной модели
+		/// </summary>
+		/// <returns>Была ли доменная модель успешно обновлена</returns>
+		Task<bool> UpdateAsync(TDomainModel domainModel);
 
 		/// <summary>
 		/// Удалить доменную модель по идентификатору

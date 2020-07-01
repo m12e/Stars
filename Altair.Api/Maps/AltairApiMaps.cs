@@ -1,4 +1,4 @@
-﻿using Altair.Api.Dto;
+﻿using Altair.Api.Dto.Participant;
 using Altair.Core.Models;
 using AutoMapper;
 
@@ -8,7 +8,7 @@ namespace Altair.Api.Maps
 	{
 		public static IMapperConfigurationExpression AddAltairApiMaps(this IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<ParticipantModel, ParticipantDto>();
+			configuration.CreateMap<ParticipantModel, ParticipantDto>().ReverseMap();
 
 			configuration.CreateMap<ParticipantModel, ParticipantSummaryDto>();
 

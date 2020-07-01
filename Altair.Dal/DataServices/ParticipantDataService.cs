@@ -4,8 +4,8 @@ using Altair.Dal.DomainModels;
 using AutoMapper;
 using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
+using Stars.Dal.EntityFramework.Repositories.Interfaces;
 using Stars.Dal.Exceptions;
-using Stars.Dal.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,12 +15,12 @@ namespace Altair.Dal.DataServices
 	{
 		private readonly IStarsLogger _logger;
 		private readonly IMapper _mapper;
-		private readonly IDomainRepository<ParticipantDomainModel> _repository;
+		private readonly IQueryableDomainRepository<ParticipantDomainModel> _repository;
 
 		public ParticipantDataService(
 			IStarsLogger logger,
 			IMapper mapper,
-			IDomainRepository<ParticipantDomainModel> repository)
+			IQueryableDomainRepository<ParticipantDomainModel> repository)
 		{
 			_logger = logger;
 			_mapper = mapper;
@@ -61,7 +61,11 @@ namespace Altair.Dal.DataServices
 			_logger.Debug($"Saving participant ({participantModel.ToJson()})...");
 
 			var participant = _mapper.Map<ParticipantDomainModel>(participantModel);
-			await _repository.SaveAsync(participant);
+			var wasRecordSaved = await _repository.SaveAsync(participant);
+			if (!wasRecordSaved)
+			{
+				throw new DomainModelOperationException($"Error while saving participant");
+			}
 
 			_logger.Information($"Participant was successfully saved (id = {participant.Id})");
 
@@ -74,10 +78,28 @@ namespace Altair.Dal.DataServices
 
 			var participants = _mapper.Map<ParticipantDomainModel[]>(participantModels);
 			var recordCount = await _repository.SaveListAsync(participants);
+			if (recordCount == 0)
+			{
+				throw new DomainModelOperationException($"Error while saving participant list");
+			}
 
 			_logger.Information($"Participants were successfully saved (count = {recordCount})");
 
 			return recordCount;
+		}
+
+		public async Task UpdateAsync(ParticipantModel participantModel)
+		{
+			_logger.Debug($"Updating participant ({participantModel.ToJson()})...");
+
+			var participant = _mapper.Map<ParticipantDomainModel>(participantModel);
+			var wasRecordUpdated = await _repository.UpdateAsync(participant);
+			if (!wasRecordUpdated)
+			{
+				throw new DomainModelOperationException($"Error while updating participant with id = {participantModel.Id}");
+			}
+
+			_logger.Information($"Participant with id = {participantModel.Id} was successfully updated");
 		}
 
 		public async Task DeleteByIdAsync(int participantId)
