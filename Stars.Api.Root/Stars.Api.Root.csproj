@@ -15,6 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Stars.Api\Stars.Api.csproj" />
+    <ProjectReference Include="..\Stars.Dal\Stars.Dal.csproj" />
+    <ProjectReference Include="..\Stars.Mq\Stars.Mq.csproj" />
   </ItemGroup>
 
 </Project>

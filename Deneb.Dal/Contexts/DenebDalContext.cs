@@ -1,17 +1,17 @@
-﻿using Altair.Dal.DomainModels;
+﻿using Deneb.Dal.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Altair.Dal.Contexts
+namespace Deneb.Dal.Contexts
 {
-	public class AltairDalContext : DbContext
+	public class DenebDalContext : DbContext
 	{
-		public AltairDalContext(DbContextOptions<AltairDalContext> options)
+		public DenebDalContext(DbContextOptions<DenebDalContext> options)
 			: base(options)
 		{
 		}
 
-		public DbSet<ParticipantDomainModel> Participants { get; set; }
+		public DbSet<ReportDomainModel> Reports { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

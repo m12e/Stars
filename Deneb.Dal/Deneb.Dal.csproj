@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Altair.Core\Altair.Core.csproj" />
+    <ProjectReference Include="..\Deneb.Core\Deneb.Core.csproj" />
     <ProjectReference Include="..\Stars.Dal.EntityFramework\Stars.Dal.EntityFramework.csproj" />
   </ItemGroup>
 

@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Altair.Core\Altair.Core.csproj" />
-    <ProjectReference Include="..\Stars.Dal.EntityFramework\Stars.Dal.EntityFramework.csproj" />
+    <ProjectReference Include="..\Deneb.Business\Deneb.Business.csproj" />
+    <ProjectReference Include="..\Stars.Mq\Stars.Mq.csproj" />
   </ItemGroup>
 
 </Project>

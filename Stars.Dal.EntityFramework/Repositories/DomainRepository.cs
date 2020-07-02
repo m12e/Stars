@@ -34,9 +34,7 @@ namespace Stars.Dal.EntityFramework.Repositories
 
 		public async Task<TDomainModel> GetByIdAsync(int domainModelId)
 		{
-			var domainModel = await _context
-				.Set<TDomainModel>()
-				.AsNoTracking()
+			var domainModel = await GetNoTrackingQuery()
 				.Where(model => model.Id == domainModelId)
 				.FirstOrDefaultAsync();
 
@@ -45,9 +43,7 @@ namespace Stars.Dal.EntityFramework.Repositories
 
 		public async Task<TDomainModel[]> GetAllAsync()
 		{
-			var domainModels = await _context
-				.Set<TDomainModel>()
-				.AsNoTracking()
+			var domainModels = await GetNoTrackingQuery()
 				.ToArrayAsync();
 
 			return domainModels;
@@ -104,12 +100,16 @@ namespace Stars.Dal.EntityFramework.Repositories
 
 		public IQueryable<TDomainModel> GetTrackingQuery()
 		{
-			return _context.Set<TDomainModel>().AsTracking();
+			return _context
+				.Set<TDomainModel>()
+				.AsTracking();
 		}
 
 		public IQueryable<TDomainModel> GetNoTrackingQuery()
 		{
-			return _context.Set<TDomainModel>().AsNoTracking();
+			return _context
+				.Set<TDomainModel>()
+				.AsNoTracking();
 		}
 
 		public async Task<int> SaveContextChanges()

@@ -26,8 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Altair.Api\Altair.Api.csproj" />
-    <ProjectReference Include="..\Altair.Dal\Altair.Dal.csproj" />
+    <ProjectReference Include="..\Deneb.Api\Deneb.Api.csproj" />
+    <ProjectReference Include="..\Deneb.Dal\Deneb.Dal.csproj" />
+    <ProjectReference Include="..\Deneb.Mq\Deneb.Mq.csproj" />
     <ProjectReference Include="..\Stars.Api.Root\Stars.Api.Root.csproj" />
   </ItemGroup>
 
