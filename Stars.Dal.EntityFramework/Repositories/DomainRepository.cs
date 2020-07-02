@@ -23,6 +23,15 @@ namespace Stars.Dal.EntityFramework.Repositories
 			_context.Dispose();
 		}
 
+		public async Task<int> GetCountAsync()
+		{
+			var domainModelCount = await _context
+				.Set<TDomainModel>()
+				.CountAsync();
+
+			return domainModelCount;
+		}
+
 		public async Task<TDomainModel> GetByIdAsync(int domainModelId)
 		{
 			var domainModel = await _context

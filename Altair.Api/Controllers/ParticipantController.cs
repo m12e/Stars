@@ -27,6 +27,20 @@ namespace Altair.Api.Controllers
 		}
 
 		/// <summary>
+		/// Получить общее количество участников
+		/// </summary>
+		[HttpGet("getCount")]
+		public async Task<ParticipantCountDto> GetCountAsync()
+		{
+			var modelCount = await _participantService.GetCountAsync();
+			
+			return new ParticipantCountDto
+			{
+				ParticipantCount = modelCount
+			};
+		}
+
+		/// <summary>
 		/// Получить участника по идентификатору
 		/// </summary>
 		[HttpGet("getById")]

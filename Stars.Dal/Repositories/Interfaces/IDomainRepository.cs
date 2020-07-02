@@ -11,6 +11,11 @@ namespace Stars.Dal.Repositories.Interfaces
 		where TDomainModel : class, IDomainModel, new()
 	{
 		/// <summary>
+		/// Получить общее количество доменных моделей
+		/// </summary>
+		Task<int> GetCountAsync();
+
+		/// <summary>
 		/// Получить доменную модель по идентификатору
 		/// </summary>
 		Task<TDomainModel> GetByIdAsync(int domainModelId);
