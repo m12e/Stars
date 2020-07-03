@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using Stars.Api.Dto.Common;
+using Stars.Business.Enums;
+using Stars.Business.Services.Interfaces;
 using Stars.Core.Exceptions;
 using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
+using Stars.Mq.Services.Interfaces;
 
 namespace Stars.Api.Root.Extensions
 {
@@ -69,6 +71,30 @@ namespace Stars.Api.Root.Extensions
 					await httpContext.Response.WriteAsync(exceptionJson);
 				});
 			});
+
+			return app;
+		}
+
+		/// <summary>
+		/// Создать подключение к серверу RabbitMQ
+		/// </summary>
+		public static IApplicationBuilder CreateRabbitConnection(this IApplicationBuilder app)
+		{
+			var rabbitConnectionService = app.ApplicationServices.GetService<IRabbitConnectionService>();
+
+			rabbitConnectionService.CreateConnection();
+
+			return app;
+		}
+
+		/// <summary>
+		/// Подписаться на очередь сообщений RabbitMQ
+		/// </summary>
+		public static IApplicationBuilder SubscribeToRabbitQueue(this IApplicationBuilder app, InterserviceQueueTypeEnum queueType)
+		{
+			var rabbitConsumptionService = app.ApplicationServices.GetService<IRabbitConsumptionService>();
+
+			rabbitConsumptionService.SubscribeToQueue(queueType);
 
 			return app;
 		}

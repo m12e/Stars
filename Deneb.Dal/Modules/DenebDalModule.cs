@@ -1,10 +1,10 @@
 ﻿using Deneb.Core.DataServices.Interfaces;
-using Deneb.Core.Services.Interfaces;
 using Deneb.Dal.Contexts;
 using Deneb.Dal.DataServices;
 using Deneb.Dal.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Stars.Core.Services.Interfaces;
 using Stars.Dal.EntityFramework.Repositories;
 using Stars.Dal.EntityFramework.Repositories.Interfaces;
 
@@ -18,7 +18,7 @@ namespace Deneb.Dal.Modules
 			services
 				.AddDbContext<DenebDalContext>((serviceProvider, optionsBuilder) =>
 				{
-					var denebConfigurationService = serviceProvider.GetService<IDenebConfigurationService>();
+					var denebConfigurationService = serviceProvider.GetService<IStarsConfigurationService>();
 					optionsBuilder.UseSqlServer(denebConfigurationService.DefaultConnectionString);
 				});
 

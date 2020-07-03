@@ -1,12 +1,14 @@
 using Deneb.Api.Root.Modules;
-using Deneb.Core.Modules;
 using Deneb.Dal.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Api.Root.Extensions;
+using Stars.Business.Enums;
+using Stars.Business.Modules;
 using Stars.Core.Modules;
+using Stars.Mq.Modules;
 
 namespace Deneb.Api.Root
 {
@@ -15,10 +17,12 @@ namespace Deneb.Api.Root
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
-				.AddLoggerModule()
-				.AddDenebMapperModule()
-				.AddDenebCoreModule()
+				.AddStarsLoggerModule()
+				.AddStarsCoreModule()
+				.AddStarsRabbitModule()
+				.AddStarsMqModule()
 				.AddDenebDalModule()
+				.AddDenebMapperModule()
 				.AddSwaggerGen();
 
 			services
@@ -30,7 +34,8 @@ namespace Deneb.Api.Root
 			app
 				.ValidateMapperConfiguration()
 				.AddSwagger("Deneb API v1")
-				.AddExceptionHandling();
+				.AddExceptionHandling()
+				.SubscribeToRabbitQueue(InterserviceQueueTypeEnum.Deneb);
 
 			app.UseRouting();
 

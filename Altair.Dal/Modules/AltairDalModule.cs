@@ -1,10 +1,10 @@
 ﻿using Altair.Core.DataServices.Interfaces;
-using Altair.Core.Services.Interfaces;
 using Altair.Dal.Contexts;
 using Altair.Dal.DataServices;
 using Altair.Dal.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Stars.Core.Services.Interfaces;
 using Stars.Dal.EntityFramework.Repositories;
 using Stars.Dal.EntityFramework.Repositories.Interfaces;
 
@@ -18,7 +18,7 @@ namespace Altair.Dal.Modules
 			services
 				.AddDbContext<AltairDalContext>((serviceProvider, optionsBuilder) =>
 				{
-					var altairConfigurationService = serviceProvider.GetService<IAltairConfigurationService>();
+					var altairConfigurationService = serviceProvider.GetService<IStarsConfigurationService>();
 					optionsBuilder.UseSqlServer(altairConfigurationService.DefaultConnectionString);
 				});
 
