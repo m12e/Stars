@@ -1,11 +1,12 @@
 using Altair.Api.Root.Modules;
-using Altair.Core.Modules;
+using Altair.Business.Modules;
 using Altair.Dal.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Api.Root.Extensions;
+using Stars.Business.Modules;
 using Stars.Core.Modules;
 
 namespace Altair.Api.Root
@@ -15,10 +16,12 @@ namespace Altair.Api.Root
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
-				.AddLoggerModule()
-				.AddAltairMapperModule()
-				.AddAltairCoreModule()
+				.AddStarsLoggerModule()
+				.AddStarsCoreModule()
+				.AddStarsRabbitModule()
+				.AddAltairBusinessModule()
 				.AddAltairDalModule()
+				.AddAltairMapperModule()
 				.AddSwaggerGen();
 
 			services
@@ -30,7 +33,8 @@ namespace Altair.Api.Root
 			app
 				.ValidateMapperConfiguration()
 				.AddSwagger("Altair API v1")
-				.AddExceptionHandling();
+				.AddExceptionHandling()
+				.CreateRabbitConnection();
 
 			app.UseRouting();
 

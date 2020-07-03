@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Globalization;
 
 namespace Stars.Core.Extensions
@@ -19,11 +20,34 @@ namespace Stars.Core.Extensions
 		};
 
 		/// <summary>
-		/// Сериализовать объект в JSON
+		/// Настройки парсинга в JObject
+		/// </summary>
+		private static readonly JsonLoadSettings _jsonLoadSettings = new JsonLoadSettings
+		{
+		};
+
+		/// <summary>
+		/// Сериализовать объект в строку JSON
 		/// </summary>
 		public static string ToJson(this object entity)
 		{
 			return JsonConvert.SerializeObject(entity, _jsonSerializerSettings);
+		}
+
+		/// <summary>
+		/// Преобразовать строку JSON в JObject
+		/// </summary>
+		public static JObject ToJObject(this string jsonValue)
+		{
+			return JObject.Parse(jsonValue, _jsonLoadSettings);
+		}
+
+		/// <summary>
+		/// Десериализовать строку JSON в объект
+		/// </summary>
+		public static T Deserialize<T>(this string jsonValue)
+		{
+			return JsonConvert.DeserializeObject<T>(jsonValue, _jsonSerializerSettings);
 		}
 	}
 }

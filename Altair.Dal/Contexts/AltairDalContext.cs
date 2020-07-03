@@ -1,5 +1,4 @@
-﻿using Altair.Core.Services.Interfaces;
-using Altair.Dal.DomainModels;
+﻿using Altair.Dal.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -7,19 +6,12 @@ namespace Altair.Dal.Contexts
 {
 	public class AltairDalContext : DbContext
 	{
-		private readonly IAltairConfigurationService _altairConfigurationService;
-
-		public AltairDalContext(IAltairConfigurationService altairConfigurationService)
+		public AltairDalContext(DbContextOptions<AltairDalContext> options)
+			: base(options)
 		{
-			_altairConfigurationService = altairConfigurationService;
 		}
 
 		public DbSet<ParticipantDomainModel> Participants { get; set; }
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlServer(_altairConfigurationService.DefaultConnectionString);
-		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

@@ -10,6 +10,11 @@ namespace Altair.Core.DataServices.Interfaces
 	public interface IParticipantDataService
 	{
 		/// <summary>
+		/// Получить общее количество участников
+		/// </summary>
+		Task<int> GetCountAsync();
+
+		/// <summary>
 		/// Получить участника по идентификатору
 		/// </summary>
 		Task<ParticipantModel> GetByIdAsync(int participantId);

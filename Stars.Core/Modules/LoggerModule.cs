@@ -5,12 +5,9 @@ using Stars.Core.Logger.Interfaces;
 
 namespace Stars.Core.Modules
 {
-	/// <summary>
-	/// Модуль для регистрации логгера
-	/// </summary>
 	public static class LoggerModule
 	{
-		public static IServiceCollection AddLoggerModule(this IServiceCollection services)
+		public static IServiceCollection AddStarsLoggerModule(this IServiceCollection services)
 		{
 			Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Verbose()

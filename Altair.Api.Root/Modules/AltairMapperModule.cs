@@ -6,9 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Altair.Api.Root.Modules
 {
-	/// <summary>
-	/// Модуль для регистрации маппера в проектах Altair
-	/// </summary>
 	public static class AltairMapperModule
 	{
 		public static IServiceCollection AddAltairMapperModule(this IServiceCollection services)

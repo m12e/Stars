@@ -27,6 +27,17 @@ namespace Altair.Dal.DataServices
 			_repository = repository;
 		}
 
+		public async Task<int> GetCountAsync()
+		{
+			_logger.Debug("Getting participant count...");
+
+			var participantCount = await _repository.GetCountAsync();
+
+			_logger.Information($"Participant count = {participantCount}");
+
+			return participantCount;
+		}
+
 		public async Task<ParticipantModel> GetByIdAsync(int participantId)
 		{
 			_logger.Debug($"Getting participant with id = {participantId}...");
