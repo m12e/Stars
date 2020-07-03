@@ -5,13 +5,8 @@ namespace Deneb.Core.Models
 	/// <summary>
 	/// Отчёт
 	/// </summary>
-	public class ReportModel
+	public class ReportModel : ReportForSaveModel
 	{
-		/// <summary>
-		/// Общее количество участников
-		/// </summary>
-		public int ParticipantCount { get; set; }
-
 		/// <summary>
 		/// Дата и время создания отчёта (UTC)
 		/// </summary>

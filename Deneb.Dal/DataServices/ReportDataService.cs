@@ -3,8 +3,11 @@ using Deneb.Core.DataServices.Interfaces;
 using Deneb.Core.Models;
 using Deneb.Dal.DomainModels;
 using Microsoft.EntityFrameworkCore;
+using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
 using Stars.Dal.EntityFramework.Repositories.Interfaces;
+using Stars.Dal.Exceptions;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,6 +35,10 @@ namespace Deneb.Dal.DataServices
 
 			var reports = await _repository.GetNoTrackingQuery()
 				.OrderBy(report => report.DateOfCreationUtc)
+				.ForEachOfQueryable(report =>
+				{
+					report.DateOfCreationUtc = DateTime.SpecifyKind(report.DateOfCreationUtc, DateTimeKind.Utc);
+				})
 				.ToArrayAsync();
 
 			var reportModels = _mapper.Map<ReportModel[]>(reports);
@@ -39,6 +46,27 @@ namespace Deneb.Dal.DataServices
 			_logger.Information($"All reports were successfully loaded (count = {reportModels.Length})");
 
 			return reportModels;
+		}
+
+		public async Task<int> SaveAsync(ReportForSaveModel reportForSaveModel)
+		{
+			_logger.Debug($"Saving report ({reportForSaveModel.ToJson()})...");
+
+			var report = new ReportDomainModel
+			{
+				ParticipantCount = reportForSaveModel.ParticipantCount,
+				DateOfCreationUtc = DateTime.UtcNow
+			};
+
+			var wasRecordSaved = await _repository.SaveAsync(report);
+			if (!wasRecordSaved)
+			{
+				throw new DomainModelOperationException($"Error while saving report");
+			}
+
+			_logger.Information($"Report was successfully saved ({report.ToJson()})");
+
+			return report.Id;
 		}
 	}
 }

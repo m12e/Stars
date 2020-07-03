@@ -2,6 +2,7 @@
 using Deneb.Api.Maps;
 using Deneb.Dal;
 using Deneb.Dal.Maps;
+using Deneb.Mq.Maps;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Deneb.Api.Root.Modules
@@ -20,7 +21,8 @@ namespace Deneb.Api.Root.Modules
 			{
 				configuration
 					.AddDenebDalMaps()
-					.AddDenebApiMaps();
+					.AddDenebApiMaps()
+					.AddDenebMqMaps();
 			}, assemblyMarkers);
 
 			return services;

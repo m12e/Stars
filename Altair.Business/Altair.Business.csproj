@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Altair.Core\Altair.Core.csproj" />
+    <ProjectReference Include="..\Stars.Business\Stars.Business.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,5 +12,11 @@ namespace Deneb.Core.DataServices.Interfaces
 		/// Получить список всех отчётов, упорядоченный по дате создания
 		/// </summary>
 		Task<ReportModel[]> GetAllOrderedAsync();
+
+		/// <summary>
+		/// Сохранить отчёт
+		/// </summary>
+		/// <returns>Идентификатор созданной записи</returns>
+		Task<int> SaveAsync(ReportForSaveModel reportForSaveModel);
 	}
 }

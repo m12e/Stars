@@ -1,5 +1,6 @@
 using Deneb.Api.Root.Modules;
 using Deneb.Dal.Modules;
+using Deneb.Mq.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,7 @@ namespace Deneb.Api.Root
 				.AddStarsCoreModule()
 				.AddStarsRabbitModule()
 				.AddStarsMqModule()
+				.AddDenebMqModule()
 				.AddDenebDalModule()
 				.AddDenebMapperModule()
 				.AddSwaggerGen();

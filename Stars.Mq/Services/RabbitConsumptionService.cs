@@ -64,11 +64,11 @@ namespace Stars.Mq.Services
 		/// <summary>
 		/// Обработать полученное сообщение
 		/// </summary>
-		private async void ProcessReceivedMessageAsync(object? model, BasicDeliverEventArgs eventArgs)
+		private async void ProcessReceivedMessageAsync(object model, BasicDeliverEventArgs eventArgs)
 		{
 			var messageJson = Encoding.UTF8.GetString(eventArgs.Body.ToArray());
 
-			_logger.Debug($"Serialized message model = '{messageJson}'");
+			_logger.Debug($"Received interservice message: '{messageJson}'");
 
 			var messageJObject = messageJson.ToJObject();
 			var messageTypeName = messageJObject.Value<string>(nameof(IInterserviceMessageModel.MessageType));
@@ -82,7 +82,11 @@ namespace Stars.Mq.Services
 				throw new InterserviceMessageException($"Interservice message consumer for type '{messageType}' is not implemented");
 			}
 
+			_logger.Debug($"Consuming interservice message with routing key '{eventArgs.RoutingKey}'...");
+
 			await messageConsumer.ConsumeAsync(messageJson);
+
+			_logger.Debug($"Interservice message with routing key '{eventArgs.RoutingKey}' was successfully consumed");
 		}
 	}
 }

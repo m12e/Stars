@@ -1,4 +1,5 @@
 using Altair.Api.Root.Modules;
+using Altair.Business.Modules;
 using Altair.Dal.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,7 @@ namespace Altair.Api.Root
 				.AddStarsLoggerModule()
 				.AddStarsCoreModule()
 				.AddStarsRabbitModule()
+				.AddAltairBusinessModule()
 				.AddAltairDalModule()
 				.AddAltairMapperModule()
 				.AddSwaggerGen();
