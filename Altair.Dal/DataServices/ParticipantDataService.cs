@@ -45,7 +45,7 @@ namespace Altair.Dal.DataServices
 			var participant = await _repository.GetByIdAsync(participantId);
 			if (participant == null)
 			{
-				throw new DomainModelNotFoundException($"Participant with id = {participantId} not found");
+				throw new DomainModelNotFoundException($"Participant with id = {participantId} was not found");
 			}
 
 			var participantModel = _mapper.Map<ParticipantModel>(participant);

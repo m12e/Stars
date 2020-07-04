@@ -1,22 +1,22 @@
-﻿using Deneb.Core.DataServices.Interfaces;
-using Deneb.Dal.Contexts;
-using Deneb.Dal.DataServices;
-using Deneb.Dal.DomainModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Core.Services.Interfaces;
 using Stars.Dal.EntityFramework.Repositories;
 using Stars.Dal.EntityFramework.Repositories.Interfaces;
+using Vega.Core.DataServices.Interfaces;
+using Vega.Dal.Contexts;
+using Vega.Dal.DataServices;
+using Vega.Dal.DomainModels;
 
-namespace Deneb.Dal.Modules
+namespace Vega.Dal.Modules
 {
-	public static class DenebDalModule
+	public static class VegaDalModule
 	{
-		public static IServiceCollection AddDenebDalModule(this IServiceCollection services)
+		public static IServiceCollection AddVegaDalModule(this IServiceCollection services)
 		{
 			// Контексты баз данных
 			services
-				.AddDbContext<DenebDalContext>((serviceProvider, optionsBuilder) =>
+				.AddDbContext<VegaDalContext>((serviceProvider, optionsBuilder) =>
 				{
 					var starsConfigurationService = serviceProvider.GetService<IStarsConfigurationService>();
 					optionsBuilder.UseSqlServer(starsConfigurationService.DefaultConnectionString);
@@ -25,12 +25,12 @@ namespace Deneb.Dal.Modules
 			// Репозитории
 			services
 				.AddTransient<
-					IQueryableDomainRepository<ReportDomainModel>,
-					DomainRepository<ReportDomainModel, DenebDalContext>>();
+					IQueryableDomainRepository<UserAccountDomainModel>,
+					DomainRepository<UserAccountDomainModel, VegaDalContext>>();
 
 			// Data-сервисы
 			services
-				.AddTransient<IReportDataService, ReportDataService>();
+				.AddTransient<IUserAccountDataService, UserAccountDataService>();
 
 			return services;
 		}
