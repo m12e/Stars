@@ -77,6 +77,12 @@ namespace Vega.Dal.DataServices
 		{
 			_logger.Debug($"Creating user account with login '{userAccountForCreateModel.Login}'...");
 
+			if (userAccountForCreateModel.Login.Contains(':') ||
+				userAccountForCreateModel.Password.Contains(':'))
+			{
+				throw new UserAccountException("User account login and password must not contain following characters: ':'");
+			}
+
 			var currentDateTime = DateTime.UtcNow;
 
 			var userAccount = new UserAccountDomainModel

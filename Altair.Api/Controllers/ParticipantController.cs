@@ -2,7 +2,9 @@
 using Altair.Core.DataServices.Interfaces;
 using Altair.Core.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stars.Api.Constants;
 using Stars.Api.Dto.Common;
 using System.Threading.Tasks;
 
@@ -11,6 +13,7 @@ namespace Altair.Api.Controllers
 	/// <summary>
 	/// Контроллер для операций с участниками
 	/// </summary>
+	[Authorize(AuthenticationSchemes = AuthenticationSchemeConstants.BASIC)]
 	[ApiController]
 	[Route("api/participant")]
 	public class ParticipantController : ControllerBase
@@ -29,6 +32,7 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Получить общее количество участников
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getCount")]
 		public async Task<ParticipantCountDto> GetCountAsync()
 		{
@@ -43,6 +47,7 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Получить участника по идентификатору
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getById")]
 		public async Task<ParticipantDto> GetByIdAsync(int participantId)
 		{
@@ -55,6 +60,7 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Получить список всех участников
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getAll")]
 		public async Task<ParticipantDto[]> GetAllAsync()
 		{
@@ -67,6 +73,7 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Получить краткие описания всех участников
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getAllSummaries")]
 		public async Task<ParticipantSummaryDto[]> GetAllSummariesAsync()
 		{

@@ -1,10 +1,13 @@
 using Altair.Api.Root.Modules;
 using Altair.Business.Modules;
 using Altair.Dal.Modules;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Stars.Api.Constants;
+using Stars.Api.Handlers;
 using Stars.Api.Root.Extensions;
 using Stars.Business.Modules;
 using Stars.Core.Modules;
@@ -19,6 +22,7 @@ namespace Altair.Api.Root
 				.AddStarsLoggerModule()
 				.AddStarsCoreModule()
 				.AddStarsRabbitModule()
+				.AddStarsBusinessModule()
 				.AddAltairBusinessModule()
 				.AddAltairDalModule()
 				.AddAltairMapperModule()
@@ -26,6 +30,10 @@ namespace Altair.Api.Root
 
 			services
 				.AddControllers();
+
+			services
+				.AddAuthentication(AuthenticationSchemeConstants.BASIC)
+				.AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationSchemeConstants.BASIC, null);
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,6 +45,7 @@ namespace Altair.Api.Root
 				.CreateRabbitConnection();
 
 			app.UseRouting();
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{

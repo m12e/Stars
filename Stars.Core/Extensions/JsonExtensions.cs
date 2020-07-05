@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Globalization;
+using System.IO;
 
 namespace Stars.Core.Extensions
 {
@@ -45,9 +46,22 @@ namespace Stars.Core.Extensions
 		/// <summary>
 		/// Десериализовать строку JSON в объект
 		/// </summary>
-		public static T Deserialize<T>(this string jsonValue)
+		public static T FromJson<T>(this string jsonValue)
 		{
 			return JsonConvert.DeserializeObject<T>(jsonValue, _jsonSerializerSettings);
+		}
+
+		/// <summary>
+		/// Десериализовать поток JSON в объект
+		/// </summary>
+		public static T FromJson<T>(this Stream jsonStream)
+		{
+			using var streamReader = new StreamReader(jsonStream);
+			using var jsonReader = new JsonTextReader(streamReader);
+
+			var jsonSerializer = JsonSerializer.CreateDefault(_jsonSerializerSettings);
+
+			return jsonSerializer.Deserialize<T>(jsonReader);
 		}
 	}
 }

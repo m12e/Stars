@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Stars.Api.Dto.Common;
+using Stars.Business.Dto.User;
 using System;
 using System.Threading.Tasks;
 using Vega.Api.Dto.UserAccount;
@@ -104,16 +105,16 @@ namespace Vega.Api.Controllers
 		}
 
 		/// <summary>
-		/// Проверить, валидны ли параметры учётной записи пользователя
+		/// Проверить, валидны ли параметры аутентификации пользователя
 		/// </summary>
-		[HttpPost("areValid")]
-		public async Task<UserAccountAreParametersValidResponseDto> AreValidAsync(UserAccountAreParametersValidRequestDto dto)
+		[HttpPost("isIdentityValid")]
+		public async Task<UserIsIdentityValidResponseDto> IsValidAsync(UserIsIdentityValidRequestDto dto)
 		{
-			var areUserAccountParametersValid = await _userAccountDataService.AreValidAsync(dto.Login, dto.PasswordHashBase64);
+			var isUserIdentityValid = await _userAccountDataService.AreValidAsync(dto.Login, dto.PasswordHashBase64);
 
-			return new UserAccountAreParametersValidResponseDto
+			return new UserIsIdentityValidResponseDto
 			{
-				AreUserAccountParametersValid = areUserAccountParametersValid
+				IsUserIdentityValid = isUserIdentityValid
 			};
 		}
 	}

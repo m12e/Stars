@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Stars.Core.Extensions
 {
@@ -22,6 +23,25 @@ namespace Stars.Core.Extensions
 		public static string ToBase64(this byte[] bytes, Base64FormattingOptions options)
 		{
 			return Convert.ToBase64String(bytes, options);
+		}
+
+		/// <summary>
+		/// Декодировать строку Base64 в массив байтов
+		/// </summary>
+		public static byte[] FromBase64ToBytes(this string base64Value)
+		{
+			return Convert.FromBase64String(base64Value);
+		}
+
+		/// <summary>
+		/// Декодировать строку Base64 в текст
+		/// </summary>
+		public static string FromBase64ToString(this string base64Value)
+		{
+			var decodedTextBytes = base64Value.FromBase64ToBytes();
+			var decodedText = Encoding.UTF8.GetString(decodedTextBytes);
+
+			return decodedText;
 		}
 	}
 }
