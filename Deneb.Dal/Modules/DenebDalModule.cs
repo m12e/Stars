@@ -18,8 +18,8 @@ namespace Deneb.Dal.Modules
 			services
 				.AddDbContext<DenebDalContext>((serviceProvider, optionsBuilder) =>
 				{
-					var denebConfigurationService = serviceProvider.GetService<IStarsConfigurationService>();
-					optionsBuilder.UseSqlServer(denebConfigurationService.DefaultConnectionString);
+					var starsConfigurationService = serviceProvider.GetService<IStarsConfigurationService>();
+					optionsBuilder.UseSqlServer(starsConfigurationService.DefaultConnectionString);
 				});
 
 			// Репозитории

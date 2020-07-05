@@ -2,7 +2,9 @@
 using Altair.Core.DataServices.Interfaces;
 using Altair.Core.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stars.Api.Constants;
 using Stars.Api.Dto.Common;
 using System.Threading.Tasks;
 
@@ -11,28 +13,30 @@ namespace Altair.Api.Controllers
 	/// <summary>
 	/// Контроллер для операций с участниками
 	/// </summary>
+	[Authorize(AuthenticationSchemes = AuthenticationSchemeConstants.BASIC)]
 	[ApiController]
 	[Route("api/participant")]
 	public class ParticipantController : ControllerBase
 	{
 		private readonly IMapper _mapper;
-		private readonly IParticipantDataService _participantService;
+		private readonly IParticipantDataService _participantDataService;
 
 		public ParticipantController(
 			IMapper mapper,
-			IParticipantDataService participantService)
+			IParticipantDataService participantDataService)
 		{
 			_mapper = mapper;
-			_participantService = participantService;
+			_participantDataService = participantDataService;
 		}
 
 		/// <summary>
 		/// Получить общее количество участников
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getCount")]
 		public async Task<ParticipantCountDto> GetCountAsync()
 		{
-			var modelCount = await _participantService.GetCountAsync();
+			var modelCount = await _participantDataService.GetCountAsync();
 			
 			return new ParticipantCountDto
 			{
@@ -43,10 +47,11 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Получить участника по идентификатору
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getById")]
 		public async Task<ParticipantDto> GetByIdAsync(int participantId)
 		{
-			var model = await _participantService.GetByIdAsync(participantId);
+			var model = await _participantDataService.GetByIdAsync(participantId);
 			var dto = _mapper.Map<ParticipantDto>(model);
 
 			return dto;
@@ -55,10 +60,11 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Получить список всех участников
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getAll")]
 		public async Task<ParticipantDto[]> GetAllAsync()
 		{
-			var modelList = await _participantService.GetAllAsync();
+			var modelList = await _participantDataService.GetAllAsync();
 			var dtoList = _mapper.Map<ParticipantDto[]>(modelList);
 
 			return dtoList;
@@ -67,10 +73,11 @@ namespace Altair.Api.Controllers
 		/// <summary>
 		/// Получить краткие описания всех участников
 		/// </summary>
+		[AllowAnonymous]
 		[HttpGet("getAllSummaries")]
 		public async Task<ParticipantSummaryDto[]> GetAllSummariesAsync()
 		{
-			var modelList = await _participantService.GetAllAsync();
+			var modelList = await _participantDataService.GetAllAsync();
 			var dtoList = _mapper.Map<ParticipantSummaryDto[]>(modelList);
 
 			return dtoList;
@@ -83,7 +90,7 @@ namespace Altair.Api.Controllers
 		public async Task<RecordIdDto> SaveAsync(ParticipantBaseDto dto)
 		{
 			var model = _mapper.Map<ParticipantModel>(dto);
-			var recordId = await _participantService.SaveAsync(model);
+			var recordId = await _participantDataService.SaveAsync(model);
 
 			return new RecordIdDto
 			{
@@ -98,7 +105,7 @@ namespace Altair.Api.Controllers
 		public async Task<RecordCountDto> SaveListAsync(ParticipantBaseDto[] dtoList)
 		{
 			var modelList = _mapper.Map<ParticipantModel[]>(dtoList);
-			var recordCount = await _participantService.SaveListAsync(modelList);
+			var recordCount = await _participantDataService.SaveListAsync(modelList);
 
 			return new RecordCountDto
 			{
@@ -113,7 +120,7 @@ namespace Altair.Api.Controllers
 		public async Task<SuccessMessageDto> UpdateAsync(ParticipantDto dto)
 		{
 			var model = _mapper.Map<ParticipantModel>(dto);
-			await _participantService.UpdateAsync(model);
+			await _participantDataService.UpdateAsync(model);
 
 			return new SuccessMessageDto();
 		}
@@ -124,7 +131,7 @@ namespace Altair.Api.Controllers
 		[HttpDelete("deleteById")]
 		public async Task<SuccessMessageDto> DeleteByIdAsync(int participantId)
 		{
-			await _participantService.DeleteByIdAsync(participantId);
+			await _participantDataService.DeleteByIdAsync(participantId);
 
 			return new SuccessMessageDto();
 		}

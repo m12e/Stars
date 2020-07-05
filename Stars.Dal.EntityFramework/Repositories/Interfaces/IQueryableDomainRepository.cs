@@ -12,6 +12,12 @@ namespace Stars.Dal.EntityFramework.Repositories.Interfaces
 		where TDomainModel : class, IDomainModel, new()
 	{
 		/// <summary>
+		/// Получить запрос для доменной модели
+		/// </summary>
+		/// <param name="trackQuery">Отслеживать ли изменения доменных моделей, полученных по запросу</param>
+		IQueryable<TDomainModel> GetQuery(bool trackQuery);
+
+		/// <summary>
 		/// Получить запрос для доменной модели с отслеживанием изменений
 		/// </summary>
 		IQueryable<TDomainModel> GetTrackingQuery();
@@ -25,6 +31,6 @@ namespace Stars.Dal.EntityFramework.Repositories.Interfaces
 		/// Сохранить изменения контекста базы данных
 		/// </summary>
 		/// <returns>Количество изменённых записей</returns>
-		Task<int> SaveContextChanges();
+		Task<int> SaveContextChangesAsync();
 	}
 }

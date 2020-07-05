@@ -19,5 +19,10 @@
 		/// Порт, на котором работает RabbitMQ
 		/// </summary>
 		int RabbitPort { get; }
+
+		/// <summary>
+		/// Адрес веб-сервиса Vega
+		/// </summary>
+		string VegaEndpoint { get; }
 	}
 }

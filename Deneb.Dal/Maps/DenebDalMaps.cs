@@ -8,9 +8,6 @@ namespace Deneb.Dal.Maps
 	{
 		public static IMapperConfigurationExpression AddDenebDalMaps(this IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<ReportModel, ReportDomainModel>()
-				.ForMember(d => d.Id, o => o.Ignore());
-
 			configuration.CreateMap<ReportDomainModel, ReportModel>();
 
 			return configuration;

@@ -55,7 +55,7 @@ namespace Stars.Dal.EntityFramework.Repositories
 				.Set<TDomainModel>()
 				.AddAsync(domainModel);
 
-			var recordCount = await SaveContextChanges();
+			var recordCount = await SaveContextChangesAsync();
 
 			return recordCount == 1;
 		}
@@ -66,7 +66,7 @@ namespace Stars.Dal.EntityFramework.Repositories
 				.Set<TDomainModel>()
 				.AddRangeAsync(domainModels);
 
-			var recordCount = await SaveContextChanges();
+			var recordCount = await SaveContextChangesAsync();
 
 			return recordCount;
 		}
@@ -77,7 +77,7 @@ namespace Stars.Dal.EntityFramework.Repositories
 				.Set<TDomainModel>()
 				.Update(domainModel);
 
-			var recordCount = await SaveContextChanges();
+			var recordCount = await SaveContextChangesAsync();
 
 			return recordCount == 1;
 		}
@@ -93,9 +93,16 @@ namespace Stars.Dal.EntityFramework.Repositories
 				.Set<TDomainModel>()
 				.Remove(domainModel);
 
-			var recordCount = await SaveContextChanges();
+			var recordCount = await SaveContextChangesAsync();
 
 			return recordCount == 1;
+		}
+
+		public IQueryable<TDomainModel> GetQuery(bool trackQuery)
+		{
+			return trackQuery
+				? GetTrackingQuery()
+				: GetNoTrackingQuery();
 		}
 
 		public IQueryable<TDomainModel> GetTrackingQuery()
@@ -112,7 +119,7 @@ namespace Stars.Dal.EntityFramework.Repositories
 				.AsNoTracking();
 		}
 
-		public async Task<int> SaveContextChanges()
+		public async Task<int> SaveContextChangesAsync()
 		{
 			try
 			{

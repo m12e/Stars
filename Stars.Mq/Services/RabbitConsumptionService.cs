@@ -75,11 +75,11 @@ namespace Stars.Mq.Services
 
 			if (!Enum.TryParse<InterserviceMessageTypeEnum>(messageTypeName, out var messageType))
 			{
-				throw new InterserviceMessageException($"Unknown interservice message type: '{messageTypeName}'");
+				throw new InterserviceMqException($"Unknown interservice message type: '{messageTypeName}'");
 			}
 			if (!_messageConsumerDictionary.TryGetValue(messageType, out var messageConsumer))
 			{
-				throw new InterserviceMessageException($"Interservice message consumer for type '{messageType}' is not implemented");
+				throw new InterserviceMqException($"Interservice message consumer for type '{messageType}' is not implemented");
 			}
 
 			_logger.Debug($"Consuming interservice message with routing key '{eventArgs.RoutingKey}'...");

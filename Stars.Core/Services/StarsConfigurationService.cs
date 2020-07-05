@@ -6,6 +6,7 @@ namespace Stars.Core.Services
 	public class StarsConfigurationService : IStarsConfigurationService
 	{
 		private const string RabbitSection = "Rabbit";
+		private const string VegaSection = "Vega";
 
 		private readonly IConfiguration _configuration;
 
@@ -24,5 +25,9 @@ namespace Stars.Core.Services
 		public int RabbitPort => _configuration
 			.GetSection(RabbitSection)
 			.GetValue<int>("Port");
+
+		public string VegaEndpoint => _configuration
+			.GetSection(VegaSection)
+			.GetValue<string>("Endpoint");
 	}
 }

@@ -25,7 +25,7 @@ namespace Stars.Mq.MessageConsumers
 
 		public async Task ConsumeAsync(string messageJson)
 		{
-			var messageModel = messageJson.Deserialize<TMessageModel>();
+			var messageModel = messageJson.FromJson<TMessageModel>();
 
 			await ConsumeAsync(messageModel);
 		}
