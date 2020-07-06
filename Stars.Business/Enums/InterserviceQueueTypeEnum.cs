@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Тип очереди при внутренней коммуникации между приложениями
 	/// </summary>
-	public enum InterserviceQueueTypeEnum
+	public enum InterserviceQueueTypeEnum : byte
 	{
 		/// <summary>
 		/// Альтаир

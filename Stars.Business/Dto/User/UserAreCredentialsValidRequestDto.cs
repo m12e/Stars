@@ -3,9 +3,9 @@
 namespace Stars.Business.Dto.User
 {
 	/// <summary>
-	/// DTO для проверки, валидны ли параметры аутентификации пользователя
+	/// DTO для проверки, валидны ли учётные данные пользователя
 	/// </summary>
-	public class UserIsIdentityValidRequestDto
+	public class UserAreCredentialsValidRequestDto
 	{
 		/// <summary>
 		/// Логин

@@ -151,19 +151,19 @@ namespace Vega.Dal.DataServices
 			return isExisting;
 		}
 
-		public async Task<bool> AreValidAsync(string userAccountLogin, string userAccountPasswordHash)
+		public async Task<bool> AreCredentialsValidAsync(string userAccountLogin, string userAccountPasswordHash)
 		{
 			var userAccountLogText = $"user account login '{userAccountLogin}' and password hash '{userAccountPasswordHash}'";
 
 			_logger.Debug($"Checking if {userAccountLogText} are valid...");
 
-			var areValid = await _repository.GetNoTrackingQuery()
+			var areCredentialsValid = await _repository.GetNoTrackingQuery()
 				.AnyAsync(account =>
 					account.Status == UserAccountStatusEnum.Active &&
 					account.Login == userAccountLogin &&
 					account.PasswordHash == userAccountPasswordHash);
 
-			if (areValid)
+			if (areCredentialsValid)
 			{
 				_logger.Information($"Done, {userAccountLogText} are valid");
 			}
@@ -172,7 +172,7 @@ namespace Vega.Dal.DataServices
 				_logger.Information($"Done, {userAccountLogText} are not valid");
 			}
 
-			return areValid;
+			return areCredentialsValid;
 		}
 
 		private static void ConvertDateTimeValuesToUtc(UserAccountDomainModel userAccount)

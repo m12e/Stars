@@ -105,16 +105,16 @@ namespace Vega.Api.Controllers
 		}
 
 		/// <summary>
-		/// Проверить, валидны ли параметры аутентификации пользователя
+		/// Проверить, валидны ли учётные данные пользователя
 		/// </summary>
-		[HttpPost("isIdentityValid")]
-		public async Task<UserIsIdentityValidResponseDto> IsValidAsync(UserIsIdentityValidRequestDto dto)
+		[HttpPost("areCredentialsValid")]
+		public async Task<UserAreCredentialsValidResponseDto> AreCredentialsValidAsync(UserAreCredentialsValidRequestDto dto)
 		{
-			var isUserIdentityValid = await _userAccountDataService.AreValidAsync(dto.Login, dto.PasswordHashBase64);
+			var areUserCredentialsValid = await _userAccountDataService.AreCredentialsValidAsync(dto.Login, dto.PasswordHashBase64);
 
-			return new UserIsIdentityValidResponseDto
+			return new UserAreCredentialsValidResponseDto
 			{
-				IsUserIdentityValid = isUserIdentityValid
+				AreUserCredentialsValid = areUserCredentialsValid
 			};
 		}
 	}

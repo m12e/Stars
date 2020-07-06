@@ -1,9 +1,9 @@
 ﻿namespace Stars.Business.Models.User
 {
 	/// <summary>
-	/// Модель для аутентификации пользователя
+	/// Учётные данные пользователя
 	/// </summary>
-	public class UserIdentityModel
+	public class UserCredentialsModel
 	{
 		/// <summary>
 		/// Логин

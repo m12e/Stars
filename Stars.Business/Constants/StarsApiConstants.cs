@@ -11,9 +11,9 @@
 		public static class Vega
 		{
 			/// <summary>
-			/// Проверить, валидны ли параметры аутентификации пользователя
+			/// Проверить, валидны ли учётные данные пользователя
 			/// </summary>
-			public const string USER_ACCOUNT_IS_IDENTITY_VALID = "api/userAccount/isIdentityValid";
+			public const string USER_ACCOUNT_ARE_CREDENTIALS_VALID = "api/userAccount/areCredentialsValid";
 		}
 	}
 }
