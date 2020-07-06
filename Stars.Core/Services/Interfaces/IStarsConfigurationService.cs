@@ -1,28 +1,11 @@
-﻿namespace Stars.Core.Services.Interfaces
+﻿using Stars.Core.Models.Configuration;
+
+namespace Stars.Core.Services.Interfaces
 {
 	/// <summary>
-	/// Сервис для доступа к конфигурации проектов Stars
+	/// Сервис для доступа к базовой для всех проектов Stars конфигурации приложения
 	/// </summary>
-	public interface IStarsConfigurationService
+	public interface IStarsConfigurationService : IConfigurationService<RootSectionModel>
 	{
-		/// <summary>
-		/// Строка подключения к базе данных по умолчанию
-		/// </summary>
-		string DefaultConnectionString { get; }
-
-		/// <summary>
-		/// Адрес сервера с RabbitMQ
-		/// </summary>
-		string RabbitHostName { get; }
-
-		/// <summary>
-		/// Порт, на котором работает RabbitMQ
-		/// </summary>
-		int RabbitPort { get; }
-
-		/// <summary>
-		/// Адрес веб-сервиса Vega
-		/// </summary>
-		string VegaEndpoint { get; }
 	}
 }

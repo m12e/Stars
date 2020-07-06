@@ -36,7 +36,7 @@ namespace Stars.Business.Services
 
 			_logger.Debug($"Checking if {userCredentialsLogText} are valid...");
 
-			var vegaEndpoint = _starsConfigurationService.VegaEndpoint;
+			var vegaEndpoint = _starsConfigurationService.Root.Vega.Endpoint;
 			if (string.IsNullOrEmpty(vegaEndpoint))
 			{
 				throw new ConfigurationParameterException("Vega endpoint is null or empty");

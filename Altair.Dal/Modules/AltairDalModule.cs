@@ -19,7 +19,7 @@ namespace Altair.Dal.Modules
 				.AddDbContext<AltairDalContext>((serviceProvider, optionsBuilder) =>
 				{
 					var starsConfigurationService = serviceProvider.GetService<IStarsConfigurationService>();
-					optionsBuilder.UseSqlServer(starsConfigurationService.DefaultConnectionString);
+					optionsBuilder.UseSqlServer(starsConfigurationService.Root.ConnectionStrings.Default);
 				});
 
 			// Репозитории

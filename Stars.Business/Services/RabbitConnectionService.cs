@@ -33,8 +33,8 @@ namespace Stars.Business.Services
 
 		public void CreateConnection()
 		{
-			var hostName = _starsConfigurationService.RabbitHostName;
-			var port = _starsConfigurationService.RabbitPort;
+			var hostName = _starsConfigurationService.Root.Rabbit.HostName;
+			var port = _starsConfigurationService.Root.Rabbit.Port;
 
 			_logger.Debug($"Creating connection to RabbitMQ server '{hostName}:{port}'...");
 
