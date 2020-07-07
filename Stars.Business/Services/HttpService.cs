@@ -43,7 +43,7 @@ namespace Stars.Business.Services
 			using var httpResponseBodyStream = await httpResponse.Content.ReadAsStreamAsync();
 			var httpResponseBody = httpResponseBodyStream.FromJson<T>();
 
-			_logger.Information($"HTTP response body was successfully read ({httpResponseBody.ToJson()})");
+			_logger.Debug($"HTTP response body was successfully read ({httpResponseBody.ToJson()})");
 
 			return new HttpResponseWithBodyModel<T>(httpResponse)
 			{
@@ -58,7 +58,7 @@ namespace Stars.Business.Services
 		{
 			var httpRequestLogText = $"HTTP {requestModel.Method.Method} request to uri '{requestModel.Uri}'";
 
-			_logger.Debug($"Sending {httpRequestLogText}...");
+			_logger.Information($"Sending {httpRequestLogText}...");
 
 			using var httpRequest = new HttpRequestMessage(requestModel.Method, requestModel.Uri);
 
@@ -72,7 +72,7 @@ namespace Stars.Business.Services
 				var httpRequestBodyJson = requestModel.Body.ToJson();
 				httpRequest.Content = new StringContent(httpRequestBodyJson, Encoding.UTF8, MediaTypeNames.Application.Json);
 
-				_logger.Verbose($"HTTP request body = '{httpRequestBodyJson}'");
+				_logger.Trace($"HTTP request body = '{httpRequestBodyJson}'");
 			}
 
 			var httpResponse = await _httpClient.SendAsync(httpRequest);

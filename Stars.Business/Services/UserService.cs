@@ -34,7 +34,7 @@ namespace Stars.Business.Services
 		{
 			var userCredentialsLogText = $"user credentials with login '{userCredentialsModel.Login}'";
 
-			_logger.Debug($"Checking if {userCredentialsLogText} are valid...");
+			_logger.Information($"Checking if {userCredentialsLogText} are valid...");
 
 			var vegaEndpoint = _starsConfigurationService.Root.Vega.Endpoint;
 			if (string.IsNullOrEmpty(vegaEndpoint))

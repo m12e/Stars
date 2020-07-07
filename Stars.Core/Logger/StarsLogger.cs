@@ -5,7 +5,7 @@ namespace Stars.Core.Logger
 {
 	public class StarsLogger : IStarsLogger
 	{
-		public void Verbose(string message)
+		public void Trace(string message)
 		{
 			Log.Logger.Verbose(message);
 		}
@@ -30,7 +30,7 @@ namespace Stars.Core.Logger
 			Log.Logger.Error(message);
 		}
 
-		public void Fatal(string message)
+		public void Critical(string message)
 		{
 			Log.Logger.Fatal(message);
 		}

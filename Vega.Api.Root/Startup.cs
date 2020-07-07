@@ -14,10 +14,14 @@ namespace Vega.Api.Root
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
-				.AddStarsLoggerModule()
 				.AddStarsCoreModule()
+				.AddStarsLoggerModule("vega");
+
+			services
 				.AddVegaDalModule()
-				.AddVegaMapperModule()
+				.AddVegaMapperModule();
+
+			services
 				.AddSwaggerGen();
 
 			services

@@ -24,7 +24,8 @@ namespace Stars.Business.Services
 
 		public void PublishMessage(InterserviceQueueTypeEnum queueType, IInterserviceMessageModel messageModel)
 		{
-			_logger.Debug($"Publishing interservice message to queue with type = '{queueType}' ({messageModel.ToJson()})...");
+			_logger.Information($"Publishing interservice message to queue with type = '{queueType}'...");
+			_logger.Debug($"Interservice message = '{messageModel.ToJson()}'");
 
 			var connection = _rabbitConnectionService.GetConnection();
 			using var channelModel = connection.CreateModel();

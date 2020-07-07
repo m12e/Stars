@@ -1,4 +1,4 @@
-﻿namespace Stars.Core.Models.Configuration
+﻿namespace Stars.Core.Models.Configuration.Root
 {
 	/// <summary>
 	/// Раздел конфигурации приложения со строками подключения к базам данных

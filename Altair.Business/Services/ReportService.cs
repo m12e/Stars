@@ -26,7 +26,7 @@ namespace Altair.Business.Services
 
 		public async Task SendAsync()
 		{
-			_logger.Debug("Sending report...");
+			_logger.Information("Sending report...");
 
 			var participantCount = await _participantService.GetCountAsync();
 			var messageModel = new ParticipantReportMessageModel

@@ -6,9 +6,9 @@
 	public interface IStarsLogger
 	{
 		/// <summary>
-		/// Сохранить в лог сообщение с детализацией
+		/// Сохранить в лог сообщение с подробными деталями или конфиденциальными данными
 		/// </summary>
-		void Verbose(string message);
+		void Trace(string message);
 
 		/// <summary>
 		/// Сохранить в лог сообщение для отладки
@@ -31,8 +31,8 @@
 		void Error(string message);
 
 		/// <summary>
-		/// Сохранить в лог сообщение с фатальной ошибкой
+		/// Сохранить в лог сообщение с критической ошибкой
 		/// </summary>
-		void Fatal(string message);
+		void Critical(string message);
 	}
 }

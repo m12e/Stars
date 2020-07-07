@@ -19,13 +19,17 @@ namespace Altair.Api.Root
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
-				.AddStarsLoggerModule()
 				.AddStarsCoreModule()
-				.AddStarsRabbitModule()
+				.AddStarsLoggerModule("altair")
 				.AddStarsBusinessModule()
+				.AddStarsRabbitModule();
+
+			services
 				.AddAltairBusinessModule()
 				.AddAltairDalModule()
-				.AddAltairMapperModule()
+				.AddAltairMapperModule();
+
+			services
 				.AddSwaggerGen();
 
 			services

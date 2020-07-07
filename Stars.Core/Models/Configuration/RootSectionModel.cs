@@ -1,4 +1,6 @@
-﻿namespace Stars.Core.Models.Configuration
+﻿using Stars.Core.Models.Configuration.Root;
+
+namespace Stars.Core.Models.Configuration
 {
 	/// <summary>
 	/// Корневой раздел конфигурации приложения
@@ -13,5 +15,8 @@
 
 		/// <inheritdoc cref="VegaSectionModel"/>
 		public VegaSectionModel Vega { get; private set; }
+
+		/// <inheritdoc cref="LoggingSectionModel"/>
+		public LoggingSectionModel Logging { get; private set; }
 	}
 }

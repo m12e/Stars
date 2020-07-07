@@ -33,7 +33,7 @@ namespace Vega.Dal.DataServices
 
 		public async Task<UserAccountModel> GetByIdAsync(int userAccountId)
 		{
-			_logger.Debug($"Getting user account with id = {userAccountId}...");
+			_logger.Information($"Getting user account with id = {userAccountId}...");
 
 			var userAccount = await _repository.GetByIdAsync(userAccountId);
 			if (userAccount == null)
@@ -61,7 +61,7 @@ namespace Vega.Dal.DataServices
 
 		public async Task<UserAccountModel[]> GetAllAsync()
 		{
-			_logger.Debug("Getting all user accounts...");
+			_logger.Information("Getting all user accounts...");
 
 			var userAccounts = await _repository.GetAllAsync();
 
@@ -75,7 +75,7 @@ namespace Vega.Dal.DataServices
 
 		public async Task<Guid> CreateAsync(UserAccountForCreateModel userAccountForCreateModel)
 		{
-			_logger.Debug($"Creating user account with login '{userAccountForCreateModel.Login}'...");
+			_logger.Information($"Creating user account with login '{userAccountForCreateModel.Login}'...");
 
 			if (userAccountForCreateModel.Login.Contains(':') ||
 				userAccountForCreateModel.Password.Contains(':'))
@@ -108,7 +108,7 @@ namespace Vega.Dal.DataServices
 
 		public async Task ChangeStatusAsync(Guid userAccountGuid, UserAccountStatusEnum newStatus)
 		{
-			_logger.Debug($"Changing status of user account with guid '{userAccountGuid}' to '{newStatus}'...");
+			_logger.Information($"Changing status of user account with guid '{userAccountGuid}' to '{newStatus}'...");
 
 			var userAccount = await GetByGuidCoreAsync(userAccountGuid, true);
 			if (userAccount.Status == newStatus)
@@ -134,7 +134,7 @@ namespace Vega.Dal.DataServices
 		{
 			var userAccountLogText = $"user account with login '{userAccountLogin}'";
 
-			_logger.Debug($"Checking if {userAccountLogText} exists...");
+			_logger.Information($"Checking if {userAccountLogText} exists...");
 
 			var isExisting = await _repository.GetNoTrackingQuery()
 				.AnyAsync(account => account.Login == userAccountLogin);
@@ -155,7 +155,7 @@ namespace Vega.Dal.DataServices
 		{
 			var userAccountLogText = $"user account login '{userAccountLogin}' and password hash '{userAccountPasswordHash}'";
 
-			_logger.Debug($"Checking if {userAccountLogText} are valid...");
+			_logger.Information($"Checking if {userAccountLogText} are valid...");
 
 			var areCredentialsValid = await _repository.GetNoTrackingQuery()
 				.AnyAsync(account =>
@@ -183,7 +183,7 @@ namespace Vega.Dal.DataServices
 
 		private async Task<UserAccountDomainModel> GetByGuidCoreAsync(Guid userAccountGuid, bool trackQuery)
 		{
-			_logger.Debug($"Getting user account with guid '{userAccountGuid}' ({nameof(trackQuery)} = {trackQuery})...");
+			_logger.Information($"Getting user account with guid '{userAccountGuid}' ({nameof(trackQuery)} = {trackQuery})...");
 
 			var userAccount = await _repository.GetQuery(trackQuery)
 				.Where(account => account.Guid == userAccountGuid)

@@ -18,13 +18,17 @@ namespace Deneb.Api.Root
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
-				.AddStarsLoggerModule()
 				.AddStarsCoreModule()
+				.AddStarsLoggerModule("deneb")
 				.AddStarsRabbitModule()
-				.AddStarsMqModule()
+				.AddStarsMqModule();
+
+			services
 				.AddDenebMqModule()
 				.AddDenebDalModule()
-				.AddDenebMapperModule()
+				.AddDenebMapperModule();
+
+			services
 				.AddSwaggerGen();
 
 			services

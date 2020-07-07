@@ -29,7 +29,7 @@ namespace Altair.Dal.DataServices
 
 		public async Task<int> GetCountAsync()
 		{
-			_logger.Debug("Getting participant count...");
+			_logger.Information("Getting participant count...");
 
 			var participantCount = await _repository.GetCountAsync();
 
@@ -40,7 +40,7 @@ namespace Altair.Dal.DataServices
 
 		public async Task<ParticipantModel> GetByIdAsync(int participantId)
 		{
-			_logger.Debug($"Getting participant with id = {participantId}...");
+			_logger.Information($"Getting participant with id = {participantId}...");
 
 			var participant = await _repository.GetByIdAsync(participantId);
 			if (participant == null)
@@ -57,7 +57,7 @@ namespace Altair.Dal.DataServices
 
 		public async Task<ParticipantModel[]> GetAllAsync()
 		{
-			_logger.Debug("Getting all participants...");
+			_logger.Information("Getting all participants...");
 
 			var participants = await _repository.GetAllAsync();
 			var participantModels = _mapper.Map<ParticipantModel[]>(participants);
@@ -69,7 +69,7 @@ namespace Altair.Dal.DataServices
 
 		public async Task<int> SaveAsync(ParticipantModel participantModel)
 		{
-			_logger.Debug($"Saving participant ({participantModel.ToJson()})...");
+			_logger.Information($"Saving participant ({participantModel.ToJson()})...");
 
 			var participant = _mapper.Map<ParticipantDomainModel>(participantModel);
 			var wasRecordSaved = await _repository.SaveAsync(participant);
@@ -85,7 +85,7 @@ namespace Altair.Dal.DataServices
 
 		public async Task<int> SaveListAsync(IEnumerable<ParticipantModel> participantModels)
 		{
-			_logger.Debug($"Saving participants ({participantModels.ToJson()})...");
+			_logger.Information($"Saving participants ({participantModels.ToJson()})...");
 
 			var participants = _mapper.Map<ParticipantDomainModel[]>(participantModels);
 			var recordCount = await _repository.SaveListAsync(participants);
@@ -101,7 +101,7 @@ namespace Altair.Dal.DataServices
 
 		public async Task UpdateAsync(ParticipantModel participantModel)
 		{
-			_logger.Debug($"Updating participant ({participantModel.ToJson()})...");
+			_logger.Information($"Updating participant ({participantModel.ToJson()})...");
 
 			var participant = _mapper.Map<ParticipantDomainModel>(participantModel);
 			var wasRecordUpdated = await _repository.UpdateAsync(participant);
@@ -115,7 +115,7 @@ namespace Altair.Dal.DataServices
 
 		public async Task DeleteByIdAsync(int participantId)
 		{
-			_logger.Debug($"Deleting participant with id = {participantId}...");
+			_logger.Information($"Deleting participant with id = {participantId}...");
 
 			var wasRecordDeleted = await _repository.DeleteByIdAsync(participantId);
 			if (!wasRecordDeleted)
