@@ -6,7 +6,7 @@ namespace Stars.Dal.Exceptions
 	/// <summary>
 	/// Исключение, при котором не удалось найти в базе данных запрашиваемую доменную модель
 	/// </summary>
-	public class DomainModelNotFoundException : StarsBusinessException
+	public class DomainModelNotFoundException : BusinessException
 	{
 		public DomainModelNotFoundException()
 		{

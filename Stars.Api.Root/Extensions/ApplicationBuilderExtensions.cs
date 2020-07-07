@@ -10,6 +10,7 @@ using Stars.Core.Exceptions;
 using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
 using Stars.Mq.Services.Interfaces;
+using System.Net.Mime;
 
 namespace Stars.Api.Root.Extensions
 {
@@ -52,19 +53,20 @@ namespace Stars.Api.Root.Extensions
 			app.UseExceptionHandler(applicationBuilder => {
 				applicationBuilder.Run(async httpContext =>
 				{
-					var exception = httpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error;
-					var exceptionMessage = exception?.Message ?? "Unknown error";
+					var exception = httpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error
+						?? new UnknownException();
+
 					var exceptionDto = new ErrorMessageDto
 					{
-						ErrorMessage = exceptionMessage
+						ErrorMessage = exception.Message
 					};
 					var exceptionJson = exceptionDto.ToJson();
 
 					var logger = applicationBuilder.ApplicationServices.GetService<IStarsLogger>();
-					logger.Error(exceptionMessage);
+					logger.Write(exception);
 
-					httpContext.Response.ContentType = "application/json";
-					httpContext.Response.StatusCode = exception is StarsBusinessException
+					httpContext.Response.ContentType = MediaTypeNames.Application.Json;
+					httpContext.Response.StatusCode = exception is BusinessException
 						? StatusCodes.Status400BadRequest
 						: StatusCodes.Status500InternalServerError;
 

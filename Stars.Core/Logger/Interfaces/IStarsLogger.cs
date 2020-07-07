@@ -1,4 +1,7 @@
-﻿namespace Stars.Core.Logger.Interfaces
+﻿using Microsoft.Extensions.Logging;
+using System;
+
+namespace Stars.Core.Logger.Interfaces
 {
 	/// <summary>
 	/// Логгер для проектов Stars
@@ -34,5 +37,15 @@
 		/// Сохранить в лог сообщение с критической ошибкой
 		/// </summary>
 		void Critical(string message);
+
+		/// <summary>
+		/// Сохранить в лог сообщение с указанным уровнем логирования
+		/// </summary>
+		void Write(string message, LogLevel logLevel);
+
+		/// <summary>
+		/// Сохранить в лог исключение
+		/// </summary>
+		void Write(Exception exception);
 	}
 }

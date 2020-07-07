@@ -5,7 +5,7 @@ namespace Stars.Core.Exceptions
 	/// <summary>
 	/// Исключение, связанное с параметром конфигурации приложения
 	/// </summary>
-	public class ConfigurationParameterException : Exception
+	public class ConfigurationParameterException : StarsException
 	{
 		public ConfigurationParameterException()
 		{
