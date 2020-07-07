@@ -8,13 +8,12 @@ namespace Stars.Business.Modules
 	{
 		public static IServiceCollection AddStarsBusinessModule(this IServiceCollection services)
 		{
-			// HTTP-клиент
+			// HTTP-клиенты
 			services
-				.AddHttpClient();
+				.AddHttpClient<IHttpService, HttpService>();
 
 			// Сервисы
 			services
-				.AddTransient<IHttpService, HttpService>()
 				.AddTransient<IUserService, UserService>();
 
 			return services;
