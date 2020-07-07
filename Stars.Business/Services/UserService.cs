@@ -18,12 +18,12 @@ namespace Stars.Business.Services
 	{
 		private readonly IStarsLogger _logger;
 		private readonly IStarsConfigurationService _starsConfigurationService;
-		private readonly IStarsHttpService _httpService;
+		private readonly IHttpService _httpService;
 
 		public UserService(
 			IStarsLogger logger,
 			IStarsConfigurationService starsConfigurationService,
-			IStarsHttpService httpService)
+			IHttpService httpService)
 		{
 			_logger = logger;
 			_starsConfigurationService = starsConfigurationService;

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 namespace Stars.Business.Services.Interfaces
 {
 	/// <summary>
-	/// Сервис для отправки HTTP-запросов в проектах Stars
+	/// Сервис для отправки HTTP-запросов
 	/// </summary>
-	public interface IStarsHttpService
+	public interface IHttpService
 	{
 		/// <summary>
 		/// Отправить HTTP-запрос

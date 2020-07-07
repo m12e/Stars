@@ -14,7 +14,7 @@ namespace Stars.Business.Modules
 
 			// Сервисы
 			services
-				.AddTransient<IStarsHttpService, StarsHttpService>()
+				.AddTransient<IHttpService, HttpService>()
 				.AddTransient<IUserService, UserService>();
 
 			return services;

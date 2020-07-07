@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Stars.Business.Services
 {
-	public class StarsHttpService : IStarsHttpService
+	public class HttpService : IHttpService
 	{
 		private readonly IStarsLogger _logger;
 		private readonly IHttpClientFactory _httpClientFactory;
 
-		public StarsHttpService(
+		public HttpService(
 			IStarsLogger logger,
 			IHttpClientFactory httpClientFactory)
 		{
