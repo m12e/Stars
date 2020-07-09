@@ -6,7 +6,7 @@ namespace Vega.Core.Exceptions
 	/// <summary>
 	/// Исключение, связанное с учётной записью пользователя
 	/// </summary>
-	public class UserAccountException : StarsBusinessException
+	public class UserAccountException : BusinessException
 	{
 		public UserAccountException()
 		{

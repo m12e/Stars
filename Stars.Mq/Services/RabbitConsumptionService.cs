@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Stars.Business.Enums;
 using Stars.Business.Exceptions;
@@ -15,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Stars.Mq.Services
 {
@@ -44,7 +43,7 @@ namespace Stars.Mq.Services
 
 		public void SubscribeToQueue(InterserviceQueueTypeEnum queueType)
 		{
-			_logger.Debug($"Subscribing to queue with type '{queueType}'...");
+			_logger.Information($"Subscribing to queue with type '{queueType}'...");
 
 			if (_channelModel == null)
 			{
@@ -53,7 +52,17 @@ namespace Stars.Mq.Services
 			}
 
 			var consumer = new EventingBasicConsumer(_channelModel);
-			consumer.Received += ProcessReceivedMessageAsync;
+			consumer.Received += async (model, eventArgs) =>
+			{
+				try
+				{
+					await ProcessReceivedMessageAsync(model, eventArgs);
+				}
+				catch (Exception exception)
+				{
+					_logger.Write(exception);
+				}
+			};
 
 			var queueDeclareResult = _channelModel.QueueDeclare(queueType);
 			_channelModel.BasicConsume(queueDeclareResult.QueueName, true, consumer);
@@ -64,11 +73,12 @@ namespace Stars.Mq.Services
 		/// <summary>
 		/// Обработать полученное сообщение
 		/// </summary>
-		private async void ProcessReceivedMessageAsync(object model, BasicDeliverEventArgs eventArgs)
+		private async Task ProcessReceivedMessageAsync(object model, BasicDeliverEventArgs eventArgs)
 		{
 			var messageJson = Encoding.UTF8.GetString(eventArgs.Body.ToArray());
 
-			_logger.Debug($"Received interservice message: '{messageJson}'");
+			_logger.Information($"Received interservice message");
+			_logger.Debug($"Interservice message = '{messageJson}'");
 
 			var messageJObject = messageJson.ToJObject();
 			var messageTypeName = messageJObject.Value<string>(nameof(IInterserviceMessageModel.MessageType));
@@ -82,11 +92,11 @@ namespace Stars.Mq.Services
 				throw new InterserviceMqException($"Interservice message consumer for type '{messageType}' is not implemented");
 			}
 
-			_logger.Debug($"Consuming interservice message with routing key '{eventArgs.RoutingKey}'...");
+			_logger.Information($"Consuming interservice message with routing key '{eventArgs.RoutingKey}'...");
 
 			await messageConsumer.ConsumeAsync(messageJson);
 
-			_logger.Debug($"Interservice message with routing key '{eventArgs.RoutingKey}' was successfully consumed");
+			_logger.Information($"Interservice message with routing key '{eventArgs.RoutingKey}' was successfully consumed");
 		}
 	}
 }

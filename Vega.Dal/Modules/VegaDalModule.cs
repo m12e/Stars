@@ -19,7 +19,7 @@ namespace Vega.Dal.Modules
 				.AddDbContext<VegaDalContext>((serviceProvider, optionsBuilder) =>
 				{
 					var starsConfigurationService = serviceProvider.GetService<IStarsConfigurationService>();
-					optionsBuilder.UseSqlServer(starsConfigurationService.DefaultConnectionString);
+					optionsBuilder.UseSqlServer(starsConfigurationService.Root.ConnectionStrings.Default);
 				});
 
 			// Репозитории

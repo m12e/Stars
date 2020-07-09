@@ -31,7 +31,7 @@ namespace Deneb.Dal.DataServices
 
 		public async Task<ReportModel[]> GetAllOrderedAsync()
 		{
-			_logger.Debug("Getting all reports ordered by date of creation...");
+			_logger.Information("Getting all reports ordered by date of creation...");
 
 			var reports = await _repository.GetNoTrackingQuery()
 				.OrderBy(report => report.DateOfCreationUtc)
@@ -50,7 +50,7 @@ namespace Deneb.Dal.DataServices
 
 		public async Task<int> SaveAsync(ReportForSaveModel reportForSaveModel)
 		{
-			_logger.Debug($"Saving report ({reportForSaveModel.ToJson()})...");
+			_logger.Information($"Saving report ({reportForSaveModel.ToJson()})...");
 
 			var report = new ReportDomainModel
 			{

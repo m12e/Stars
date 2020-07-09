@@ -19,17 +19,17 @@ namespace Stars.Api.Handlers
 	/// </summary>
 	public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 	{
-		private readonly IUserIdentityService _userIdentityService;
+		private readonly IUserService _userService;
 
 		public BasicAuthenticationHandler(
 			IOptionsMonitor<AuthenticationSchemeOptions> options,
 			ILoggerFactory logger,
 			UrlEncoder encoder,
 			ISystemClock clock,
-			IUserIdentityService userIdentityService)
+			IUserService userService)
 			: base(options, logger, encoder, clock)
 		{
-			_userIdentityService = userIdentityService;
+			_userService = userService;
 		}
 
 		protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -57,21 +57,21 @@ namespace Stars.Api.Handlers
 				return AuthenticateResult.Fail($"Invalid user credentials");
 			}
 
-			var userIdentityModel = new UserIdentityModel
+			var userCredentialsModel = new UserCredentialsModel
 			{
 				Login = userCredentials[0],
 				Password = userCredentials[1]
 			};
 
-			var isUserIdentityValid = await _userIdentityService.IsUserIdentityValidAsync(userIdentityModel);
-			if (!isUserIdentityValid)
+			var areCredentialsValid = await _userService.AreCredentialsValidAsync(userCredentialsModel);
+			if (!areCredentialsValid)
 			{
 				return AuthenticateResult.Fail($"Invalid user login or password");
 			}
 
 			var userClaims = new[]
 			{
-				new Claim(ClaimTypes.Name, userIdentityModel.Login),
+				new Claim(ClaimTypes.Name, userCredentialsModel.Login),
 				new Claim(ClaimTypes.Role, StarsUserRoleConstants.USER),
 				new Claim(ClaimTypes.AuthenticationMethod, authenticationScheme)
 			};

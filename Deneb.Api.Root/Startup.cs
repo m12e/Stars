@@ -1,4 +1,4 @@
-using Deneb.Api.Root.Modules;
+﻿using Deneb.Api.Root.Modules;
 using Deneb.Dal.Modules;
 using Deneb.Mq.Modules;
 using Microsoft.AspNetCore.Builder;
@@ -15,16 +15,25 @@ namespace Deneb.Api.Root
 {
 	public class Startup
 	{
+		/// <summary>
+		/// Название проекта
+		/// </summary>
+		private const string PROJECT_NAME = "deneb";
+
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
-				.AddStarsLoggerModule()
 				.AddStarsCoreModule()
+				.AddStarsLoggerModule(PROJECT_NAME)
 				.AddStarsRabbitModule()
-				.AddStarsMqModule()
+				.AddStarsMqModule();
+
+			services
 				.AddDenebMqModule()
 				.AddDenebDalModule()
-				.AddDenebMapperModule()
+				.AddDenebMapperModule();
+
+			services
 				.AddSwaggerGen();
 
 			services

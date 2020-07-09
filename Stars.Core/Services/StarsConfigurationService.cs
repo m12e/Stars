@@ -1,33 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Stars.Core.Models.Configuration;
 using Stars.Core.Services.Interfaces;
 
 namespace Stars.Core.Services
 {
-	public class StarsConfigurationService : IStarsConfigurationService
+	public class StarsConfigurationService : ConfigurationService<RootSectionModel>, IStarsConfigurationService
 	{
-		private const string RabbitSection = "Rabbit";
-		private const string VegaSection = "Vega";
-
-		private readonly IConfiguration _configuration;
-
 		public StarsConfigurationService(IConfiguration configuration)
+			: base(configuration)
 		{
-			_configuration = configuration;
 		}
-
-		public string DefaultConnectionString => _configuration
-			.GetConnectionString("Default");
-
-		public string RabbitHostName => _configuration
-			.GetSection(RabbitSection)
-			.GetValue<string>("HostName");
-
-		public int RabbitPort => _configuration
-			.GetSection(RabbitSection)
-			.GetValue<int>("Port");
-
-		public string VegaEndpoint => _configuration
-			.GetSection(VegaSection)
-			.GetValue<string>("Endpoint");
 	}
 }

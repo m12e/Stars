@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Stars.Core.Exceptions;
+using System;
 
 namespace Stars.Business.Exceptions
 {
 	/// <summary>
 	/// Исключение, связанное со внутренней коммуникацией между приложениями посредством REST API
 	/// </summary>
-	public class InterserviceApiException : Exception
+	public class InterserviceApiException : StarsException
 	{
 		public InterserviceApiException()
 		{

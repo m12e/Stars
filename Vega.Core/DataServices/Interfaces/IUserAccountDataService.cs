@@ -42,10 +42,10 @@ namespace Vega.Core.DataServices.Interfaces
 		Task<bool> IsExistingAsync(string userAccountLogin);
 
 		/// <summary>
-		/// Проверить, валидны ли указанные логин и хеш пароля для учётной записи пользователя
+		/// Проверить, валидны ли указанные учётные данные пользователя
 		/// </summary>
 		/// <param name="userAccountLogin">Логин</param>
 		/// <param name="userAccountPasswordHash">Хеш пароля в формате Base64</param>
-		Task<bool> AreValidAsync(string userAccountLogin, string userAccountPasswordHash);
+		Task<bool> AreCredentialsValidAsync(string userAccountLogin, string userAccountPasswordHash);
 	}
 }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Stars.Core.Exceptions;
+using System;
 
 namespace Stars.Business.Exceptions
 {
 	/// <summary>
 	/// Исключение, связанное со внутренней коммуникацией между приложениями посредством AMQP
 	/// </summary>
-	public class InterserviceMqException : Exception
+	public class InterserviceMqException : StarsException
 	{
 		public InterserviceMqException()
 		{

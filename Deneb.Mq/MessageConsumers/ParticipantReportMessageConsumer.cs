@@ -4,7 +4,6 @@ using Deneb.Core.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Business.Enums;
 using Stars.Business.MessageModels;
-using Stars.Core.Logger.Interfaces;
 using Stars.Mq.MessageConsumers;
 using System;
 using System.Threading.Tasks;
@@ -20,10 +19,8 @@ namespace Deneb.Mq.MessageConsumers
 		private readonly IServiceProvider _serviceProvider;
 
 		public ParticipantReportMessageConsumer(
-			IStarsLogger logger,
 			IMapper mapper,
 			IServiceProvider serviceProvider)
-			: base(logger)
 		{
 			_mapper = mapper;
 			_serviceProvider = serviceProvider;

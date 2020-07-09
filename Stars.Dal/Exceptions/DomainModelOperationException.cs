@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Stars.Core.Exceptions;
+using System;
 
 namespace Stars.Dal.Exceptions
 {
 	/// <summary>
 	/// Исключение, при котором не удалось выполнить операцию с доменной моделью
 	/// </summary>
-	public class DomainModelOperationException : Exception
+	public class DomainModelOperationException : StarsException
 	{
 		public DomainModelOperationException()
 		{

@@ -33,10 +33,10 @@ namespace Stars.Business.Services
 
 		public void CreateConnection()
 		{
-			var hostName = _starsConfigurationService.RabbitHostName;
-			var port = _starsConfigurationService.RabbitPort;
+			var hostName = _starsConfigurationService.Root.Rabbit.HostName;
+			var port = _starsConfigurationService.Root.Rabbit.Port;
 
-			_logger.Debug($"Creating connection to RabbitMQ server '{hostName}:{port}'...");
+			_logger.Information($"Creating connection to RabbitMQ server '{hostName}:{port}'...");
 
 			var connectionFactory = new ConnectionFactory()
 			{
@@ -51,7 +51,7 @@ namespace Stars.Business.Services
 
 		public IConnection GetConnection(bool createIfNotExists = true)
 		{
-			_logger.Debug("Getting connection to RabbitMQ server...");
+			_logger.Information("Getting connection to RabbitMQ server...");
 
 			if (_connection == null || !_connection.IsOpen)
 			{

@@ -4,21 +4,22 @@ using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
 using System.Net.Http;
 using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Stars.Business.Services
 {
-	public class StarsHttpService : IStarsHttpService
+	public class HttpService : IHttpService
 	{
 		private readonly IStarsLogger _logger;
-		private readonly IHttpClientFactory _httpClientFactory;
+		private readonly HttpClient _httpClient;
 
-		public StarsHttpService(
+		public HttpService(
 			IStarsLogger logger,
-			IHttpClientFactory httpClientFactory)
+			HttpClient httpClient)
 		{
 			_logger = logger;
-			_httpClientFactory = httpClientFactory;
+			_httpClient = httpClient;
 		}
 
 		public async Task<HttpResponseModel> SendRequestAsync(HttpRequestModel requestModel)
@@ -42,7 +43,7 @@ namespace Stars.Business.Services
 			using var httpResponseBodyStream = await httpResponse.Content.ReadAsStreamAsync();
 			var httpResponseBody = httpResponseBodyStream.FromJson<T>();
 
-			_logger.Information($"HTTP response body was successfully read ({httpResponseBody.ToJson()})");
+			_logger.Debug($"HTTP response body was successfully read ({httpResponseBody.ToJson()})");
 
 			return new HttpResponseWithBodyModel<T>(httpResponse)
 			{
@@ -57,9 +58,8 @@ namespace Stars.Business.Services
 		{
 			var httpRequestLogText = $"HTTP {requestModel.Method.Method} request to uri '{requestModel.Uri}'";
 
-			_logger.Debug($"Sending {httpRequestLogText}...");
+			_logger.Information($"Sending {httpRequestLogText}...");
 
-			var httpClient = _httpClientFactory.CreateClient();
 			using var httpRequest = new HttpRequestMessage(requestModel.Method, requestModel.Uri);
 
 			foreach (var httpHeader in requestModel.Headers)
@@ -70,14 +70,12 @@ namespace Stars.Business.Services
 			if (requestModel.Body != null)
 			{
 				var httpRequestBodyJson = requestModel.Body.ToJson();
+				httpRequest.Content = new StringContent(httpRequestBodyJson, Encoding.UTF8, MediaTypeNames.Application.Json);
 
-				httpRequest.Content = new StringContent(httpRequestBodyJson);
-				httpRequest.Content.Headers.ContentType.MediaType = MediaTypeNames.Application.Json;
-
-				_logger.Verbose($"HTTP request body = '{httpRequestBodyJson}'");
+				_logger.Trace($"HTTP request body = '{httpRequestBodyJson}'");
 			}
 
-			var httpResponse = await httpClient.SendAsync(httpRequest);
+			var httpResponse = await _httpClient.SendAsync(httpRequest);
 			if (httpResponse.IsSuccessStatusCode)
 			{
 				_logger.Information($"{httpRequestLogText} was successfully sent");

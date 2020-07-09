@@ -14,40 +14,40 @@ using System.Threading.Tasks;
 
 namespace Stars.Business.Services
 {
-	public class UserIdentityService : IUserIdentityService
+	public class UserService : IUserService
 	{
 		private readonly IStarsLogger _logger;
 		private readonly IStarsConfigurationService _starsConfigurationService;
-		private readonly IStarsHttpService _httpService;
+		private readonly IHttpService _httpService;
 
-		public UserIdentityService(
+		public UserService(
 			IStarsLogger logger,
 			IStarsConfigurationService starsConfigurationService,
-			IStarsHttpService httpService)
+			IHttpService httpService)
 		{
 			_logger = logger;
 			_starsConfigurationService = starsConfigurationService;
 			_httpService = httpService;
 		}
 
-		public async Task<bool> IsUserIdentityValidAsync(UserIdentityModel userIdentityModel)
+		public async Task<bool> AreCredentialsValidAsync(UserCredentialsModel userCredentialsModel)
 		{
-			var userIdentityLogText = $"user identity with login '{userIdentityModel.Login}'";
+			var userCredentialsLogText = $"user credentials with login '{userCredentialsModel.Login}'";
 
-			_logger.Debug($"Checking if {userIdentityLogText} is valid...");
+			_logger.Information($"Checking if {userCredentialsLogText} are valid...");
 
-			var vegaEndpoint = _starsConfigurationService.VegaEndpoint;
+			var vegaEndpoint = _starsConfigurationService.Root.Vega.Endpoint;
 			if (string.IsNullOrEmpty(vegaEndpoint))
 			{
 				throw new ConfigurationParameterException("Vega endpoint is null or empty");
 			}
 
-			var uri = vegaEndpoint.AddQueryPath(StarsApiConstants.Vega.USER_ACCOUNT_IS_IDENTITY_VALID);
+			var uri = vegaEndpoint.AddQueryPath(StarsApiConstants.Vega.USER_ACCOUNT_ARE_CREDENTIALS_VALID);
 
-			var requestDto = new UserIsIdentityValidRequestDto
+			var requestDto = new UserAreCredentialsValidRequestDto
 			{
-				Login = userIdentityModel.Login,
-				PasswordHashBase64 = userIdentityModel.Password.GetSHA256().ToBase64()
+				Login = userCredentialsModel.Login,
+				PasswordHashBase64 = userCredentialsModel.Password.GetSHA256().ToBase64()
 			};
 
 			var requestModel = new HttpRequestModel
@@ -57,22 +57,22 @@ namespace Stars.Business.Services
 				Body = requestDto
 			};
 
-			var response = await _httpService.SendRequestAsync<UserIsIdentityValidResponseDto>(requestModel);
+			var response = await _httpService.SendRequestAsync<UserAreCredentialsValidResponseDto>(requestModel);
 			if (!response.IsSuccessful)
 			{
 				throw new InterserviceApiException($"Request to Vega API failed (uri = '{uri}')");
 			}
 
-			if (response.Body.IsUserIdentityValid)
+			if (response.Body.AreUserCredentialsValid)
 			{
-				_logger.Information($"Check has been completed, {userIdentityLogText} is valid");
+				_logger.Information($"Check has been completed, {userCredentialsLogText} are valid");
 			}
 			else
 			{
-				_logger.Information($"Check has been completed, {userIdentityLogText} is not valid");
+				_logger.Information($"Check has been completed, {userCredentialsLogText} are not valid");
 			}
 
-			return response.Body.IsUserIdentityValid;
+			return response.Body.AreUserCredentialsValid;
 		}
 	}
 }
