@@ -9,5 +9,8 @@ namespace Stars.Core.Models.Configuration.Root
 	{
 		/// <inheritdoc cref="LogLevelSectionModel"/>
 		public LogLevelSectionModel LogLevel { get; private set; }
+
+		/// <inheritdoc cref="ElasticsearchSectionModel"/>
+		public ElasticsearchSectionModel Elasticsearch { get; private set; }
 	}
 }

@@ -1,13 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Events;
+using Serilog.Sinks.Elasticsearch;
 using Stars.Core.Extensions;
 using Stars.Core.Logger;
 using Stars.Core.Logger.Interfaces;
 using Stars.Core.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace Stars.Core.Modules
 {
@@ -38,11 +35,32 @@ namespace Stars.Core.Modules
 					rollOnFileSizeLimit: true,
 					rollingInterval: RollingInterval.Day,
 					outputTemplate: LOG_OUTPUT_TEMPLATE)
+				.WriteToElasticsearchIfEnabled(starsConfigurationService, projectName)
 				.CreateLogger();
 
 			services.AddSingleton<IStarsLogger, StarsLogger>();
 
 			return services;
+		}
+
+		/// <summary>
+		/// Сохранять логи в Elasticsearch, если включена соответствующая опция
+		/// </summary>
+		private static LoggerConfiguration WriteToElasticsearchIfEnabled(
+			this LoggerConfiguration loggerConfiguration,
+			IStarsConfigurationService starsConfigurationService,
+			string projectName)
+		{
+			if (!starsConfigurationService.Root.Logging.Elasticsearch.Enabled)
+			{
+				return loggerConfiguration;
+			}
+
+			return loggerConfiguration.WriteTo.Elasticsearch(
+				starsConfigurationService.Root.Logging.Elasticsearch.Endpoint,
+				autoRegisterTemplate: true,
+				autoRegisterTemplateVersion: AutoRegisterTemplateVersion.ESv7,
+				indexFormat: $"stars-{projectName}-{0:yyyy.MM.dd}");
 		}
 	}
 }

@@ -1,4 +1,4 @@
-using Altair.Api.Root.Modules;
+﻿using Altair.Api.Root.Modules;
 using Altair.Business.Modules;
 using Altair.Dal.Modules;
 using Microsoft.AspNetCore.Authentication;
@@ -16,11 +16,16 @@ namespace Altair.Api.Root
 {
 	public class Startup
 	{
+		/// <summary>
+		/// Название проекта
+		/// </summary>
+		private const string PROJECT_NAME = "altair";
+
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
 				.AddStarsCoreModule()
-				.AddStarsLoggerModule("altair")
+				.AddStarsLoggerModule(PROJECT_NAME)
 				.AddStarsBusinessModule()
 				.AddStarsRabbitModule();
 

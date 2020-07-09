@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,11 +11,16 @@ namespace Vega.Api.Root
 {
 	public class Startup
 	{
+		/// <summary>
+		/// Название проекта
+		/// </summary>
+		private const string PROJECT_NAME = "vega";
+
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
 				.AddStarsCoreModule()
-				.AddStarsLoggerModule("vega");
+				.AddStarsLoggerModule(PROJECT_NAME);
 
 			services
 				.AddVegaDalModule()
