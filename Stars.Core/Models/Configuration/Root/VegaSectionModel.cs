@@ -6,8 +6,13 @@
 	public class VegaSectionModel
 	{
 		/// <summary>
-		/// Адрес веб-сервиса Vega
+		/// Адрес сервера с веб-сервисом Vega
 		/// </summary>
-		public string Endpoint { get; private set; }
+		public string HostName { get; private set; }
+
+		/// <summary>
+		/// Порт, на котором работает веб-сервис Vega
+		/// </summary>
+		public int Port { get; private set; }
 	}
 }

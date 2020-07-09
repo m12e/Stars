@@ -19,10 +19,5 @@
 		/// Порт, на котором работает Elasticsearch
 		/// </summary>
 		public int Port { get; private set; }
-
-		/// <summary>
-		/// Адрес сервера с Elasticsearch вместе с портом
-		/// </summary>
-		public string Endpoint => $"{HostName}:{Port}";
 	}
 }

@@ -36,13 +36,14 @@ namespace Stars.Business.Services
 
 			_logger.Information($"Checking if {userCredentialsLogText} are valid...");
 
-			var vegaEndpoint = _starsConfigurationService.Root.Vega.Endpoint;
-			if (string.IsNullOrEmpty(vegaEndpoint))
+			var vegaConfiguration = _starsConfigurationService.Root.Vega;
+			if (string.IsNullOrEmpty(vegaConfiguration.HostName))
 			{
 				throw new ConfigurationParameterException("Vega endpoint is null or empty");
 			}
 
-			var uri = vegaEndpoint.AddQueryPath(StarsApiConstants.Vega.USER_ACCOUNT_ARE_CREDENTIALS_VALID);
+			var uri = $"{vegaConfiguration.HostName}:{vegaConfiguration.Port}";
+			uri = uri.AddQueryPath(StarsApiConstants.Vega.USER_ACCOUNT_ARE_CREDENTIALS_VALID);
 
 			var requestDto = new UserAreCredentialsValidRequestDto
 			{
