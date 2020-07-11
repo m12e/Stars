@@ -9,6 +9,7 @@ using Stars.Business.Services.Interfaces;
 using Stars.Core.Exceptions;
 using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
+using Stars.Core.Services.Interfaces;
 using Stars.Mq.Services.Interfaces;
 using System.Net.Mime;
 
@@ -73,6 +74,18 @@ namespace Stars.Api.Root.Extensions
 					await httpContext.Response.WriteAsync(exceptionJson);
 				});
 			});
+
+			return app;
+		}
+
+		/// <summary>
+		/// Создать клиента для подключения к серверу Elasticsearch
+		/// </summary>
+		public static IApplicationBuilder CreateElasticsearchClient(this IApplicationBuilder app)
+		{
+			var elasticsearchService = app.ApplicationServices.GetService<IElasticsearchService>();
+
+			elasticsearchService.CreateClient();
 
 			return app;
 		}

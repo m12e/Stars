@@ -1,58 +1,75 @@
 ﻿using Microsoft.Extensions.Logging;
-using Serilog;
 using Stars.Core.Exceptions;
 using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
 using System;
 
+using ILogger = Serilog.ILogger;
+
 namespace Stars.Core.Logger
 {
+	/// <summary>
+	/// Базовый логгер для проектов Stars
+	/// </summary>
 	public class StarsLogger : IStarsLogger
 	{
+		private readonly ILogger _logger;
+
+		public StarsLogger(ILogger logger)
+		{
+			_logger = logger;
+		}
+
 		public void Trace(string message)
 		{
-			Log.Logger.Verbose(message);
+			Write(message, LogLevel.Trace);
 		}
 
 		public void Debug(string message)
 		{
-			Log.Logger.Debug(message);
+			Write(message, LogLevel.Debug);
 		}
 
 		public void Information(string message)
 		{
-			Log.Logger.Information(message);
+			Write(message, LogLevel.Information);
 		}
 
 		public void Warning(string message)
 		{
-			Log.Logger.Warning(message);
+			Write(message, LogLevel.Warning);
 		}
 
 		public void Error(string message)
 		{
-			Log.Logger.Error(message);
+			Write(message, LogLevel.Error);
 		}
 
 		public void Critical(string message)
 		{
-			Log.Logger.Fatal(message);
+			Write(message, LogLevel.Critical);
 		}
 
-		public void Write(string message, LogLevel logLevel)
+		public virtual void Write(string message, LogLevel logLevel)
 		{
 			var mappedLogLevel = logLevel.ToSerilogLevel();
 
-			Log.Logger.Write(mappedLogLevel, message);
+			_logger.Write(mappedLogLevel, message);
 		}
 
 		public void Write(Exception exception)
 		{
+			var message = exception.Message;
+			if (!string.IsNullOrEmpty(exception.StackTrace))
+			{
+				message += Environment.NewLine + exception.StackTrace;
+			}
+
 			var logLevel = exception is CriticalException
 				? LogLevel.Critical
 				: LogLevel.Error;
 
-			Write(exception.Message, logLevel);
+			Write(message, logLevel);
 		}
 	}
 }

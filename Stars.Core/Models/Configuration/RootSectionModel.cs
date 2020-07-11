@@ -7,6 +7,11 @@ namespace Stars.Core.Models.Configuration
 	/// </summary>
 	public class RootSectionModel
 	{
+		/// <summary>
+		/// <inheritdoc cref="ApplicationSectionModel"/>
+		/// </summary>
+		public ApplicationSectionModel Application { get; private set; }
+
 		/// <inheritdoc cref="ConnectionStringsSectionModel"/>
 		public ConnectionStringsSectionModel ConnectionStrings { get; private set; }
 

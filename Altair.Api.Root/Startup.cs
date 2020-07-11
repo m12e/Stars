@@ -11,21 +11,17 @@ using Stars.Api.Handlers;
 using Stars.Api.Root.Extensions;
 using Stars.Business.Modules;
 using Stars.Core.Modules;
+using Stars.Core.Services.Interfaces;
 
 namespace Altair.Api.Root
 {
 	public class Startup
 	{
-		/// <summary>
-		/// Название проекта
-		/// </summary>
-		private const string PROJECT_NAME = "altair";
-
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
 				.AddStarsCoreModule()
-				.AddStarsLoggerModule(PROJECT_NAME)
+				.AddStarsLoggerModule()
 				.AddStarsBusinessModule()
 				.AddStarsRabbitModule();
 
@@ -47,6 +43,13 @@ namespace Altair.Api.Root
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			var starsConfigurationService = app.ApplicationServices.GetService<IStarsConfigurationService>();
+
+			if (starsConfigurationService.Root.Logging.Elasticsearch.Enabled)
+			{
+				app.CreateElasticsearchClient();
+			}
+
 			app
 				.ValidateMapperConfiguration()
 				.AddSwagger("Altair API v1")

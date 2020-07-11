@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Api.Root.Extensions;
 using Stars.Core.Modules;
+using Stars.Core.Services.Interfaces;
 using Vega.Api.Root.Modules;
 using Vega.Dal.Modules;
 
@@ -11,16 +12,11 @@ namespace Vega.Api.Root
 {
 	public class Startup
 	{
-		/// <summary>
-		/// Название проекта
-		/// </summary>
-		private const string PROJECT_NAME = "vega";
-
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
 				.AddStarsCoreModule()
-				.AddStarsLoggerModule(PROJECT_NAME);
+				.AddStarsLoggerModule();
 
 			services
 				.AddVegaDalModule()
@@ -35,6 +31,13 @@ namespace Vega.Api.Root
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			var starsConfigurationService = app.ApplicationServices.GetService<IStarsConfigurationService>();
+
+			if (starsConfigurationService.Root.Logging.Elasticsearch.Enabled)
+			{
+				app.CreateElasticsearchClient();
+			}
+
 			app
 				.ValidateMapperConfiguration()
 				.AddSwagger("Vega API v1")

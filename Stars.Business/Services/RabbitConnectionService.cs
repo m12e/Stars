@@ -44,6 +44,7 @@ namespace Stars.Business.Services
 				Port = port
 			};
 
+			_connection?.Dispose();
 			_connection = connectionFactory.CreateConnection();
 
 			_logger.Information($"Connection to RabbitMQ server '{hostName}:{port}' was successfully established");
