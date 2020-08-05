@@ -18,11 +18,6 @@ namespace Stars.Dal.EntityFramework.Repositories
 			_context = context;
 		}
 
-		~DataRepository()
-		{
-			_context.Dispose();
-		}
-
 		public async Task<int> GetCountAsync()
 		{
 			var dataModelCount = await _context
