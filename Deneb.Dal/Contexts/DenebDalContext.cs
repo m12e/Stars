@@ -1,4 +1,4 @@
-﻿using Deneb.Dal.DomainModels;
+﻿using Deneb.Dal.DataModels;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -11,7 +11,7 @@ namespace Deneb.Dal.Contexts
 		{
 		}
 
-		public DbSet<ReportDomainModel> Reports { get; set; }
+		public DbSet<ReportDataModel> Reports { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

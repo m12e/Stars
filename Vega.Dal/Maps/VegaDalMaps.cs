@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Vega.Core.Models;
-using Vega.Dal.DomainModels;
+using Vega.Dal.DataModels;
 
 namespace Vega.Dal.Maps
 {
@@ -8,7 +8,7 @@ namespace Vega.Dal.Maps
 	{
 		public static IMapperConfigurationExpression AddVegaDalMaps(this IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<UserAccountDomainModel, UserAccountModel>();
+			configuration.CreateMap<UserAccountDataModel, UserAccountModel>();
 
 			return configuration;
 		}

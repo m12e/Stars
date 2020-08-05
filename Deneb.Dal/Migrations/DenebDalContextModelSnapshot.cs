@@ -19,7 +19,7 @@ namespace Deneb.Dal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Deneb.Dal.DomainModels.ReportDomainModel", b =>
+            modelBuilder.Entity("Deneb.Dal.DataModels.ReportDataModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

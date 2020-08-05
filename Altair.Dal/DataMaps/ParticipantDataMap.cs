@@ -1,12 +1,12 @@
-﻿using Altair.Dal.DomainModels;
+﻿using Altair.Dal.DataModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Altair.Dal.DomainMaps
+namespace Altair.Dal.DataMaps
 {
-	public class ParticipantDomainMap : IEntityTypeConfiguration<ParticipantDomainModel>
+	public class ParticipantDataMap : IEntityTypeConfiguration<ParticipantDataModel>
 	{
-		public void Configure(EntityTypeBuilder<ParticipantDomainModel> builder)
+		public void Configure(EntityTypeBuilder<ParticipantDataModel> builder)
 		{
 			builder.ToTable("Participants");
 			builder.HasKey(participant => participant.Id);

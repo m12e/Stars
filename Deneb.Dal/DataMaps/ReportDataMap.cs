@@ -1,12 +1,12 @@
-﻿using Deneb.Dal.DomainModels;
+﻿using Deneb.Dal.DataModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Deneb.Dal.DomainMaps
+namespace Deneb.Dal.DataMaps
 {
-	public class ReportDomainMap : IEntityTypeConfiguration<ReportDomainModel>
+	public class ReportDataMap : IEntityTypeConfiguration<ReportDataModel>
 	{
-		public void Configure(EntityTypeBuilder<ReportDomainModel> builder)
+		public void Configure(EntityTypeBuilder<ReportDataModel> builder)
 		{
 			builder.ToTable("Reports");
 			builder.HasKey(report => report.Id);

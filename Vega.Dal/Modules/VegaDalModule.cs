@@ -5,8 +5,8 @@ using Stars.Dal.EntityFramework.Repositories;
 using Stars.Dal.EntityFramework.Repositories.Interfaces;
 using Vega.Core.DataServices.Interfaces;
 using Vega.Dal.Contexts;
+using Vega.Dal.DataModels;
 using Vega.Dal.DataServices;
-using Vega.Dal.DomainModels;
 
 namespace Vega.Dal.Modules
 {
@@ -25,8 +25,8 @@ namespace Vega.Dal.Modules
 			// Репозитории
 			services
 				.AddTransient<
-					IQueryableDomainRepository<UserAccountDomainModel>,
-					DomainRepository<UserAccountDomainModel, VegaDalContext>>();
+					IQueryableDataRepository<UserAccountDataModel>,
+					DataRepository<UserAccountDataModel, VegaDalContext>>();
 
 			// Data-сервисы
 			services

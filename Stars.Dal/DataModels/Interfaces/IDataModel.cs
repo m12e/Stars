@@ -1,9 +1,9 @@
-﻿namespace Stars.Dal.DomainModels.Interfaces
+﻿namespace Stars.Dal.DataModels.Interfaces
 {
 	/// <summary>
-	/// Доменная модель
+	/// Модель данных
 	/// </summary>
-	public interface IDomainModel
+	public interface IDataModel
 	{
 		/// <summary>
 		/// Идентификатор записи в базе данных

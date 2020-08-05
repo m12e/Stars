@@ -11,7 +11,7 @@ using Vega.Core.DataServices.Interfaces;
 using Vega.Core.Enums;
 using Vega.Core.Exceptions;
 using Vega.Core.Models;
-using Vega.Dal.DomainModels;
+using Vega.Dal.DataModels;
 
 namespace Vega.Dal.DataServices
 {
@@ -19,12 +19,12 @@ namespace Vega.Dal.DataServices
 	{
 		private readonly IStarsLogger _logger;
 		private readonly IMapper _mapper;
-		private readonly IQueryableDomainRepository<UserAccountDomainModel> _repository;
+		private readonly IQueryableDataRepository<UserAccountDataModel> _repository;
 
 		public UserAccountDataService(
 			IStarsLogger logger,
 			IMapper mapper,
-			IQueryableDomainRepository<UserAccountDomainModel> repository)
+			IQueryableDataRepository<UserAccountDataModel> repository)
 		{
 			_logger = logger;
 			_mapper = mapper;
@@ -38,7 +38,7 @@ namespace Vega.Dal.DataServices
 			var userAccount = await _repository.GetByIdAsync(userAccountId);
 			if (userAccount == null)
 			{
-				throw new DomainModelNotFoundException($"User account with id = {userAccountId} was not found");
+				throw new DataModelNotFoundException($"User account with id = {userAccountId} was not found");
 			}
 
 			ConvertDateTimeValuesToUtc(userAccount);
@@ -85,7 +85,7 @@ namespace Vega.Dal.DataServices
 
 			var currentDateTime = DateTime.UtcNow;
 
-			var userAccount = new UserAccountDomainModel
+			var userAccount = new UserAccountDataModel
 			{
 				Login = userAccountForCreateModel.Login,
 				PasswordHash = userAccountForCreateModel.Password.GetSHA256().ToBase64(),
@@ -98,7 +98,7 @@ namespace Vega.Dal.DataServices
 			var wasRecordSaved = await _repository.SaveAsync(userAccount);
 			if (!wasRecordSaved)
 			{
-				throw new DomainModelOperationException($"Error while creating user account");
+				throw new DataModelOperationException($"Error while creating user account");
 			}
 
 			_logger.Information($"User account was successfully created ({userAccount.ToJson()})");
@@ -122,7 +122,7 @@ namespace Vega.Dal.DataServices
 			var recordCount = await _repository.SaveContextChangesAsync();
 			if (recordCount == 0)
 			{
-				throw new DomainModelOperationException($"Error while changing status of user account");
+				throw new DataModelOperationException($"Error while changing status of user account");
 			}
 
 			_logger.Information(
@@ -175,13 +175,13 @@ namespace Vega.Dal.DataServices
 			return areCredentialsValid;
 		}
 
-		private static void ConvertDateTimeValuesToUtc(UserAccountDomainModel userAccount)
+		private static void ConvertDateTimeValuesToUtc(UserAccountDataModel userAccount)
 		{
 			userAccount.DateOfCreationUtc = DateTime.SpecifyKind(userAccount.DateOfCreationUtc, DateTimeKind.Utc);
 			userAccount.DateOfLastChangeUtc = DateTime.SpecifyKind(userAccount.DateOfLastChangeUtc, DateTimeKind.Utc);
 		}
 
-		private async Task<UserAccountDomainModel> GetByGuidCoreAsync(Guid userAccountGuid, bool trackQuery)
+		private async Task<UserAccountDataModel> GetByGuidCoreAsync(Guid userAccountGuid, bool trackQuery)
 		{
 			_logger.Information($"Getting user account with guid '{userAccountGuid}' ({nameof(trackQuery)} = {trackQuery})...");
 
@@ -191,7 +191,7 @@ namespace Vega.Dal.DataServices
 
 			if (userAccount == null)
 			{
-				throw new DomainModelNotFoundException($"User account with guid '{userAccountGuid}' was not found");
+				throw new DataModelNotFoundException($"User account with guid '{userAccountGuid}' was not found");
 			}
 
 			ConvertDateTimeValuesToUtc(userAccount);

@@ -1,5 +1,5 @@
 ﻿using Altair.Core.Models;
-using Altair.Dal.DomainModels;
+using Altair.Dal.DataModels;
 using AutoMapper;
 
 namespace Altair.Dal.Maps
@@ -8,7 +8,7 @@ namespace Altair.Dal.Maps
 	{
 		public static IMapperConfigurationExpression AddAltairDalMaps(this IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<ParticipantModel, ParticipantDomainModel>().ReverseMap();
+			configuration.CreateMap<ParticipantModel, ParticipantDataModel>().ReverseMap();
 
 			return configuration;
 		}

@@ -18,7 +18,7 @@ namespace Altair.Dal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Altair.Dal.DomainModels.ParticipantDomainModel", b =>
+            modelBuilder.Entity("Altair.Dal.DataModels.ParticipantDatanModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

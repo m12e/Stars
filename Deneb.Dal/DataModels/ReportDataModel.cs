@@ -1,12 +1,12 @@
-﻿using Stars.Dal.DomainModels;
+﻿using Stars.Dal.DataModels;
 using System;
 
-namespace Deneb.Dal.DomainModels
+namespace Deneb.Dal.DataModels
 {
 	/// <summary>
 	/// Отчёт
 	/// </summary>
-	public class ReportDomainModel : BaseDomainModel
+	public class ReportDataModel : BaseDataModel
 	{
 		/// <summary>
 		/// Общее количество участников

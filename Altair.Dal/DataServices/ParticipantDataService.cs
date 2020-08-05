@@ -1,6 +1,6 @@
 ﻿using Altair.Core.DataServices.Interfaces;
 using Altair.Core.Models;
-using Altair.Dal.DomainModels;
+using Altair.Dal.DataModels;
 using AutoMapper;
 using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
@@ -15,12 +15,12 @@ namespace Altair.Dal.DataServices
 	{
 		private readonly IStarsLogger _logger;
 		private readonly IMapper _mapper;
-		private readonly IQueryableDomainRepository<ParticipantDomainModel> _repository;
+		private readonly IQueryableDataRepository<ParticipantDataModel> _repository;
 
 		public ParticipantDataService(
 			IStarsLogger logger,
 			IMapper mapper,
-			IQueryableDomainRepository<ParticipantDomainModel> repository)
+			IQueryableDataRepository<ParticipantDataModel> repository)
 		{
 			_logger = logger;
 			_mapper = mapper;
@@ -45,7 +45,7 @@ namespace Altair.Dal.DataServices
 			var participant = await _repository.GetByIdAsync(participantId);
 			if (participant == null)
 			{
-				throw new DomainModelNotFoundException($"Participant with id = {participantId} was not found");
+				throw new DataModelNotFoundException($"Participant with id = {participantId} was not found");
 			}
 
 			var participantModel = _mapper.Map<ParticipantModel>(participant);
@@ -71,11 +71,11 @@ namespace Altair.Dal.DataServices
 		{
 			_logger.Information($"Saving participant ({participantModel.ToJson()})...");
 
-			var participant = _mapper.Map<ParticipantDomainModel>(participantModel);
+			var participant = _mapper.Map<ParticipantDataModel>(participantModel);
 			var wasRecordSaved = await _repository.SaveAsync(participant);
 			if (!wasRecordSaved)
 			{
-				throw new DomainModelOperationException($"Error while saving participant");
+				throw new DataModelOperationException($"Error while saving participant");
 			}
 
 			_logger.Information($"Participant was successfully saved (id = {participant.Id})");
@@ -87,11 +87,11 @@ namespace Altair.Dal.DataServices
 		{
 			_logger.Information($"Saving participants ({participantModels.ToJson()})...");
 
-			var participants = _mapper.Map<ParticipantDomainModel[]>(participantModels);
+			var participants = _mapper.Map<ParticipantDataModel[]>(participantModels);
 			var recordCount = await _repository.SaveListAsync(participants);
 			if (recordCount == 0)
 			{
-				throw new DomainModelOperationException($"Error while saving participant list");
+				throw new DataModelOperationException($"Error while saving participant list");
 			}
 
 			_logger.Information($"Participants were successfully saved (count = {recordCount})");
@@ -103,11 +103,11 @@ namespace Altair.Dal.DataServices
 		{
 			_logger.Information($"Updating participant ({participantModel.ToJson()})...");
 
-			var participant = _mapper.Map<ParticipantDomainModel>(participantModel);
+			var participant = _mapper.Map<ParticipantDataModel>(participantModel);
 			var wasRecordUpdated = await _repository.UpdateAsync(participant);
 			if (!wasRecordUpdated)
 			{
-				throw new DomainModelOperationException($"Error while updating participant with id = {participantModel.Id}");
+				throw new DataModelOperationException($"Error while updating participant with id = {participantModel.Id}");
 			}
 
 			_logger.Information($"Participant with id = {participantModel.Id} was successfully updated");
@@ -120,7 +120,7 @@ namespace Altair.Dal.DataServices
 			var wasRecordDeleted = await _repository.DeleteByIdAsync(participantId);
 			if (!wasRecordDeleted)
 			{
-				throw new DomainModelOperationException($"Error while deleting participant with id = {participantId}");
+				throw new DataModelOperationException($"Error while deleting participant with id = {participantId}");
 			}
 
 			_logger.Information($"Participants with id = {participantId} was successfully deleted");

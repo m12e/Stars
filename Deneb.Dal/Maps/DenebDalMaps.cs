@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Deneb.Core.Models;
-using Deneb.Dal.DomainModels;
+using Deneb.Dal.DataModels;
 
 namespace Deneb.Dal.Maps
 {
@@ -8,7 +8,7 @@ namespace Deneb.Dal.Maps
 	{
 		public static IMapperConfigurationExpression AddDenebDalMaps(this IMapperConfigurationExpression configuration)
 		{
-			configuration.CreateMap<ReportDomainModel, ReportModel>();
+			configuration.CreateMap<ReportDataModel, ReportModel>();
 
 			return configuration;
 		}

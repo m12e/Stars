@@ -19,7 +19,7 @@ namespace Vega.Dal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Vega.Dal.DomainModels.UserAccountDomainModel", b =>
+            modelBuilder.Entity("Vega.Dal.DataModels.UserAccountDataModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

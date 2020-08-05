@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Deneb.Core.DataServices.Interfaces;
 using Deneb.Core.Models;
-using Deneb.Dal.DomainModels;
+using Deneb.Dal.DataModels;
 using Microsoft.EntityFrameworkCore;
 using Stars.Core.Extensions;
 using Stars.Core.Logger.Interfaces;
@@ -17,12 +17,12 @@ namespace Deneb.Dal.DataServices
 	{
 		private readonly IStarsLogger _logger;
 		private readonly IMapper _mapper;
-		private readonly IQueryableDomainRepository<ReportDomainModel> _repository;
+		private readonly IQueryableDataRepository<ReportDataModel> _repository;
 
 		public ReportDataService(
 			IStarsLogger logger,
 			IMapper mapper,
-			IQueryableDomainRepository<ReportDomainModel> repository)
+			IQueryableDataRepository<ReportDataModel> repository)
 		{
 			_logger = logger;
 			_mapper = mapper;
@@ -52,7 +52,7 @@ namespace Deneb.Dal.DataServices
 		{
 			_logger.Information($"Saving report ({reportForSaveModel.ToJson()})...");
 
-			var report = new ReportDomainModel
+			var report = new ReportDataModel
 			{
 				ParticipantCount = reportForSaveModel.ParticipantCount,
 				DateOfCreationUtc = DateTime.UtcNow
@@ -61,7 +61,7 @@ namespace Deneb.Dal.DataServices
 			var wasRecordSaved = await _repository.SaveAsync(report);
 			if (!wasRecordSaved)
 			{
-				throw new DomainModelOperationException($"Error while saving report");
+				throw new DataModelOperationException($"Error while saving report");
 			}
 
 			_logger.Information($"Report was successfully saved ({report.ToJson()})");

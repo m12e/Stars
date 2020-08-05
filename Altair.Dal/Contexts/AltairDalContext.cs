@@ -1,4 +1,4 @@
-﻿using Altair.Dal.DomainModels;
+﻿using Altair.Dal.DataModels;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -11,7 +11,7 @@ namespace Altair.Dal.Contexts
 		{
 		}
 
-		public DbSet<ParticipantDomainModel> Participants { get; set; }
+		public DbSet<ParticipantDataModel> Participants { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

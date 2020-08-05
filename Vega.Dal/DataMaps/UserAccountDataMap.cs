@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Vega.Dal.DomainModels;
+using Vega.Dal.DataModels;
 
-namespace Vega.Dal.DomainMaps
+namespace Vega.Dal.DataMaps
 {
-	public class UserAccountDomainMap : IEntityTypeConfiguration<UserAccountDomainModel>
+	public class UserAccountDataMap : IEntityTypeConfiguration<UserAccountDataModel>
 	{
-		public void Configure(EntityTypeBuilder<UserAccountDomainModel> builder)
+		public void Configure(EntityTypeBuilder<UserAccountDataModel> builder)
 		{
 			builder.ToTable("UserAccounts");
 			builder.HasKey(userAccount => userAccount.Id);

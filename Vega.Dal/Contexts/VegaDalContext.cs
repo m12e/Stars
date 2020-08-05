@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Vega.Dal.DomainModels;
+using Vega.Dal.DataModels;
 
 namespace Vega.Dal.Contexts
 {
@@ -11,7 +11,7 @@ namespace Vega.Dal.Contexts
 		{
 		}
 
-		public DbSet<UserAccountDomainModel> UserAccounts { get; set; }
+		public DbSet<UserAccountDataModel> UserAccounts { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

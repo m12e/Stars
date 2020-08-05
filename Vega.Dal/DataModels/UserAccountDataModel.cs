@@ -1,13 +1,13 @@
-﻿using Stars.Dal.DomainModels;
+﻿using Stars.Dal.DataModels;
 using System;
 using Vega.Core.Enums;
 
-namespace Vega.Dal.DomainModels
+namespace Vega.Dal.DataModels
 {
 	/// <summary>
 	/// Учётная запись пользователя
 	/// </summary>
-	public class UserAccountDomainModel : BaseDomainModel
+	public class UserAccountDataModel : BaseDataModel
 	{
 		/// <summary>
 		/// Логин

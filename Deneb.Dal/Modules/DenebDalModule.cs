@@ -1,7 +1,7 @@
 ﻿using Deneb.Core.DataServices.Interfaces;
 using Deneb.Dal.Contexts;
+using Deneb.Dal.DataModels;
 using Deneb.Dal.DataServices;
-using Deneb.Dal.DomainModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Core.Services.Interfaces;
@@ -25,8 +25,8 @@ namespace Deneb.Dal.Modules
 			// Репозитории
 			services
 				.AddTransient<
-					IQueryableDomainRepository<ReportDomainModel>,
-					DomainRepository<ReportDomainModel, DenebDalContext>>();
+					IQueryableDataRepository<ReportDataModel>,
+					DataRepository<ReportDataModel, DenebDalContext>>();
 
 			// Data-сервисы
 			services

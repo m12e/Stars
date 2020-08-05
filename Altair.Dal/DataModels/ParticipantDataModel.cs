@@ -1,11 +1,11 @@
-﻿using Stars.Dal.DomainModels;
+﻿using Stars.Dal.DataModels;
 
-namespace Altair.Dal.DomainModels
+namespace Altair.Dal.DataModels
 {
 	/// <summary>
 	/// Участник
 	/// </summary>
-	public class ParticipantDomainModel : BaseDomainModel
+	public class ParticipantDataModel : BaseDataModel
 	{
 		/// <summary>
 		/// Фамилия
