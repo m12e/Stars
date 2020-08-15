@@ -47,15 +47,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stars.Mq", "Stars.Mq\Stars.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vega", "Vega", "{7D555450-D3A0-4E14-B8A2-9998CE8E059E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Core", "Vega.Core\Vega.Core.csproj", "{CC626F2A-1170-48E2-821D-F355387B5125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega.Core", "Vega.Core\Vega.Core.csproj", "{CC626F2A-1170-48E2-821D-F355387B5125}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Dal", "Vega.Dal\Vega.Dal.csproj", "{2EF51DB1-91CA-4BE9-A87F-959EB45F7DA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega.Dal", "Vega.Dal\Vega.Dal.csproj", "{2EF51DB1-91CA-4BE9-A87F-959EB45F7DA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Business", "Vega.Business\Vega.Business.csproj", "{542013F6-902C-486F-A0AA-B07836540C0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega.Business", "Vega.Business\Vega.Business.csproj", "{542013F6-902C-486F-A0AA-B07836540C0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Api", "Vega.Api\Vega.Api.csproj", "{F47DFFFB-CAB6-4074-A26E-9B5C71E2B681}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega.Api", "Vega.Api\Vega.Api.csproj", "{F47DFFFB-CAB6-4074-A26E-9B5C71E2B681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.Api.Root", "Vega.Api.Root\Vega.Api.Root.csproj", "{EB59A28E-48A3-430B-8FEC-0481E59796DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega.Api.Root", "Vega.Api.Root\Vega.Api.Root.csproj", "{EB59A28E-48A3-430B-8FEC-0481E59796DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altair.Business.Tests", "Altair.Business.Tests\Altair.Business.Tests.csproj", "{3C29D632-431A-4935-86CA-D5BB23A217A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -155,6 +157,10 @@ Global
 		{EB59A28E-48A3-430B-8FEC-0481E59796DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB59A28E-48A3-430B-8FEC-0481E59796DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB59A28E-48A3-430B-8FEC-0481E59796DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C29D632-431A-4935-86CA-D5BB23A217A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C29D632-431A-4935-86CA-D5BB23A217A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C29D632-431A-4935-86CA-D5BB23A217A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C29D632-431A-4935-86CA-D5BB23A217A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +189,7 @@ Global
 		{542013F6-902C-486F-A0AA-B07836540C0C} = {7D555450-D3A0-4E14-B8A2-9998CE8E059E}
 		{F47DFFFB-CAB6-4074-A26E-9B5C71E2B681} = {7D555450-D3A0-4E14-B8A2-9998CE8E059E}
 		{EB59A28E-48A3-430B-8FEC-0481E59796DA} = {7D555450-D3A0-4E14-B8A2-9998CE8E059E}
+		{3C29D632-431A-4935-86CA-D5BB23A217A4} = {B19419A4-BCC8-43B7-BDD6-CF18AC62324E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2FD821D-2350-45A4-B133-18C8F64EA960}
