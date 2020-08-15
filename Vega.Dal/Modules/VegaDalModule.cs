@@ -24,13 +24,13 @@ namespace Vega.Dal.Modules
 
 			// Репозитории
 			services
-				.AddTransient<
+				.AddScoped<
 					IQueryableDataRepository<UserAccountDataModel>,
 					DataRepository<UserAccountDataModel, VegaDalContext>>();
 
 			// Data-сервисы
 			services
-				.AddTransient<IUserAccountDataService, UserAccountDataService>();
+				.AddScoped<IUserAccountDataService, UserAccountDataService>();
 
 			return services;
 		}

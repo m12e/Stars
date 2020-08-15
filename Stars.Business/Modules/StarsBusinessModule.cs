@@ -14,7 +14,7 @@ namespace Stars.Business.Modules
 
 			// Сервисы
 			services
-				.AddTransient<IUserService, UserService>();
+				.AddScoped<IUserService, UserService>();
 
 			return services;
 		}

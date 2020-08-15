@@ -10,7 +10,7 @@ namespace Altair.Business.Modules
 		{
 			// Сервисы
 			services
-				.AddTransient<IReportService, ReportService>();
+				.AddScoped<IReportService, ReportService>();
 
 			return services;
 		}

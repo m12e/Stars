@@ -24,13 +24,13 @@ namespace Altair.Dal.Modules
 
 			// Репозитории
 			services
-				.AddTransient<
+				.AddScoped<
 					IQueryableDataRepository<ParticipantDataModel>,
 					DataRepository<ParticipantDataModel, AltairDalContext>>();
 
 			// Data-сервисы
 			services
-				.AddTransient<IParticipantDataService, ParticipantDataService>();
+				.AddScoped<IParticipantDataService, ParticipantDataService>();
 
 			return services;
 		}

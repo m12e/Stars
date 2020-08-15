@@ -24,13 +24,13 @@ namespace Deneb.Dal.Modules
 
 			// Репозитории
 			services
-				.AddTransient<
+				.AddScoped<
 					IQueryableDataRepository<ReportDataModel>,
 					DataRepository<ReportDataModel, DenebDalContext>>();
 
 			// Data-сервисы
 			services
-				.AddTransient<IReportDataService, ReportDataService>();
+				.AddScoped<IReportDataService, ReportDataService>();
 
 			return services;
 		}

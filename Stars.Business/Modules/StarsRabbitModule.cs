@@ -10,7 +10,7 @@ namespace Stars.Business.Modules
 		{
 			services
 				.AddSingleton<IRabbitConnectionService, RabbitConnectionService>()
-				.AddTransient<IRabbitPublicationService, RabbitPublicationService>();
+				.AddScoped<IRabbitPublicationService, RabbitPublicationService>();
 
 			return services;
 		}
