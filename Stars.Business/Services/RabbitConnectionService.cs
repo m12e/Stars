@@ -3,10 +3,11 @@ using Stars.Business.Exceptions;
 using Stars.Business.Services.Interfaces;
 using Stars.Core.Logger.Interfaces;
 using Stars.Core.Services.Interfaces;
+using System;
 
 namespace Stars.Business.Services
 {
-	public class RabbitConnectionService : IRabbitConnectionService
+	public class RabbitConnectionService : IRabbitConnectionService, IDisposable
 	{
 		/// <summary>
 		/// Сообщение об отсутствии подключения к серверу
@@ -24,11 +25,6 @@ namespace Stars.Business.Services
 		{
 			_logger = logger;
 			_starsConfigurationService = starsConfigurationService;
-		}
-
-		~RabbitConnectionService()
-		{
-			_connection?.Dispose();
 		}
 
 		public void CreateConnection()
@@ -69,6 +65,11 @@ namespace Stars.Business.Services
 			}
 
 			return _connection;
+		}
+
+		public void Dispose()
+		{
+			_connection?.Dispose();
 		}
 	}
 }
