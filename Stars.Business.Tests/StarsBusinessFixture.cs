@@ -14,6 +14,6 @@ namespace Stars.Business.Tests
 		/// <summary>
 		/// Валидны ли учётные данные пользователя
 		/// </summary>
-		public bool AreUserCredentialsValid = true;
+		public bool AreUserCredentialsValid => true;
 	}
 }
