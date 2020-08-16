@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Altair.Business.Tests.Services.Fixtures
 {
-	public class ReportServiceFixture : AltairBusinessTestsBase
+	public class ReportServiceFixture : AltairBusinessFixture
 	{
-		protected Mock<IStarsLogger> starsLoggerMock = new Mock<IStarsLogger>();
-		protected Mock<IParticipantDataService> participantDataServiceMock = new Mock<IParticipantDataService>();
-		protected Mock<IRabbitPublicationService> rabbitPublicationServiceMock = new Mock<IRabbitPublicationService>();
+		public Mock<IStarsLogger> starsLoggerMock = new Mock<IStarsLogger>();
+		public Mock<IParticipantDataService> participantDataServiceMock = new Mock<IParticipantDataService>();
+		public Mock<IRabbitPublicationService> rabbitPublicationServiceMock = new Mock<IRabbitPublicationService>();
 
-		protected ReportService GetReportService()
+		public ReportService GetReportService()
 		{
 			SetupParticipantDataServiceMock();
 
@@ -27,7 +27,7 @@ namespace Altair.Business.Tests.Services.Fixtures
 		{
 			participantDataServiceMock
 				.Setup(service => service.GetCountAsync())
-				.Returns(Task.FromResult(PARTICIPANT_COUNT));
+				.Returns(Task.FromResult(ParticipantCount));
 		}
 	}
 }

@@ -1,10 +1,10 @@
 ﻿namespace Altair.Business.Tests
 {
-	public abstract class AltairBusinessTestsBase
+	public abstract class AltairBusinessFixture
 	{
 		/// <summary>
 		/// Общее количество участников
 		/// </summary>
-		protected const int PARTICIPANT_COUNT = 10;
+		public int ParticipantCount => 10;
 	}
 }
