@@ -13,7 +13,7 @@ namespace Altair.Business.Tests.Services.Fixtures
 		public Mock<IParticipantDataService> participantDataServiceMock = new Mock<IParticipantDataService>();
 		public Mock<IRabbitPublicationService> rabbitPublicationServiceMock = new Mock<IRabbitPublicationService>();
 
-		public ReportService GetReportService()
+		public ReportService CreateReportService()
 		{
 			SetupParticipantDataServiceMock();
 

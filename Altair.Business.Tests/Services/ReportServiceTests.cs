@@ -17,9 +17,9 @@ namespace Altair.Business.Tests.Services
 		}
 
 		[Fact]
-		public async Task TestSendAsync()
+		public async Task TestSendAsync_Should_Publish_Message_Once()
 		{
-			var reportService = _reportServiceFixture.GetReportService();
+			var reportService = _reportServiceFixture.CreateReportService();
 
 			await reportService.SendAsync();
 

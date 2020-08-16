@@ -39,7 +39,7 @@ namespace Stars.Business.Services
 			var vegaConfiguration = _starsConfigurationService.Root.Vega;
 			if (string.IsNullOrEmpty(vegaConfiguration.HostName))
 			{
-				throw new ConfigurationParameterException("Vega endpoint is null or empty");
+				throw new ConfigurationParameterException("Vega host name is null or empty");
 			}
 
 			var uri = $"{vegaConfiguration.HostName}:{vegaConfiguration.Port}";

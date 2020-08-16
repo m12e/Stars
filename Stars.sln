@@ -57,7 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega.Api", "Vega.Api\Vega.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega.Api.Root", "Vega.Api.Root\Vega.Api.Root.csproj", "{EB59A28E-48A3-430B-8FEC-0481E59796DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altair.Business.Tests", "Altair.Business.Tests\Altair.Business.Tests.csproj", "{3C29D632-431A-4935-86CA-D5BB23A217A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altair.Business.Tests", "Altair.Business.Tests\Altair.Business.Tests.csproj", "{3C29D632-431A-4935-86CA-D5BB23A217A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stars.Business.Tests", "Stars.Business.Tests\Stars.Business.Tests.csproj", "{F485C621-CCB1-4E93-81A6-F84220EF3C6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,6 +163,10 @@ Global
 		{3C29D632-431A-4935-86CA-D5BB23A217A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C29D632-431A-4935-86CA-D5BB23A217A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C29D632-431A-4935-86CA-D5BB23A217A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F485C621-CCB1-4E93-81A6-F84220EF3C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F485C621-CCB1-4E93-81A6-F84220EF3C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F485C621-CCB1-4E93-81A6-F84220EF3C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F485C621-CCB1-4E93-81A6-F84220EF3C6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +196,7 @@ Global
 		{F47DFFFB-CAB6-4074-A26E-9B5C71E2B681} = {7D555450-D3A0-4E14-B8A2-9998CE8E059E}
 		{EB59A28E-48A3-430B-8FEC-0481E59796DA} = {7D555450-D3A0-4E14-B8A2-9998CE8E059E}
 		{3C29D632-431A-4935-86CA-D5BB23A217A4} = {B19419A4-BCC8-43B7-BDD6-CF18AC62324E}
+		{F485C621-CCB1-4E93-81A6-F84220EF3C6F} = {4A872D52-C30B-4E0D-8B99-2C1E738EEE5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2FD821D-2350-45A4-B133-18C8F64EA960}
