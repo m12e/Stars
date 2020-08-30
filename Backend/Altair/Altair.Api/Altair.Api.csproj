@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Stars\Stars.Api\Stars.Api.csproj" />
+    <ProjectReference Include="..\Altair.Business\Altair.Business.csproj" />
+  </ItemGroup>
+
+</Project>

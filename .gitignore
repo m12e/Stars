@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Development application settings
 appsettings.Development.json
+
+# Docker temporary files
+.temp

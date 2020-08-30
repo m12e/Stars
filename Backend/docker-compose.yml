@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "5080:80"
+    volumes:
+      - .nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - default
+    restart: on-failure
+  
+  rabbitmq:
+    image: rabbitmq
+    networks:
+      - default
+  
+  elasticsearch:
+    image: elasticsearch:7.8.1
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    volumes:
+      - .temp/elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - default
+  
+  kibana:
+    image: kibana:7.8.1
+    ports:
+      - "5601:5601"
+    networks:
+      - default
+  
+  altair:
+    build: .\Altair.Api.Root
+    environment:
+      - ASPNETCORE_URLS=http://*:5000
+      - Rabbit:HostName=rabbitmq
+      - Logging:Elasticsearch:HostName=http://elasticsearch
+    ports:
+      - "5000:5000"
+    volumes:
+      - .temp/stars:/usr/src/altair/logs
+    networks:
+      - default
+    restart: on-failure
+    depends_on:
+      - nginx
+      - rabbitmq
+      - elasticsearch
+  
+  deneb:
+    build: .\Deneb.Api.Root
+    environment:
+      - ASPNETCORE_URLS=http://*:5001
+      - Rabbit:HostName=rabbitmq
+      - Logging:Elasticsearch:HostName=http://elasticsearch
+    ports:
+      - "5001:5001"
+    volumes:
+      - .temp/stars:/usr/src/deneb/logs
+    networks:
+      - default
+    restart: on-failure
+    depends_on:
+      - nginx
+      - rabbitmq
+      - elasticsearch
+
+  vega:
+    build: .\Vega.Api.Root
+    environment:
+      - ASPNETCORE_URLS=http://*:5002
+      - Rabbit:HostName=rabbitmq
+      - Logging:Elasticsearch:HostName=http://elasticsearch
+    ports:
+      - "5002:5002"
+    volumes:
+      - .temp/stars:/usr/src/vega/logs
+    networks:
+      - default
+    restart: on-failure
+    depends_on:
+      - nginx
+      - rabbitmq
+      - elasticsearch
+
+networks:
+  default:
