@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Api.Root.Extensions;
+using Stars.Api.Root.Modules;
 using Stars.Core.Modules;
 using Stars.Core.Services.Interfaces;
 using Vega.Api.Root.Modules;
@@ -16,7 +17,8 @@ namespace Vega.Api.Root
 		{
 			services
 				.AddStarsCoreModule()
-				.AddStarsLoggerModule();
+				.AddStarsLoggerModule()
+				.AddStarsCorsModule();
 
 			services
 				.AddVegaDalModule()
@@ -41,7 +43,8 @@ namespace Vega.Api.Root
 			app
 				.ValidateMapperConfiguration()
 				.AddSwagger("Vega API v1")
-				.AddExceptionHandling();
+				.AddExceptionHandling()
+				.AddCors();
 
 			app.UseRouting();
 

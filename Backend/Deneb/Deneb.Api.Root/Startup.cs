@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Api.Root.Extensions;
+using Stars.Api.Root.Modules;
 using Stars.Business.Enums;
 using Stars.Business.Modules;
 using Stars.Core.Modules;
@@ -22,7 +23,8 @@ namespace Deneb.Api.Root
 				.AddStarsCoreModule()
 				.AddStarsLoggerModule()
 				.AddStarsRabbitModule()
-				.AddStarsMqModule();
+				.AddStarsMqModule()
+				.AddStarsCorsModule();
 
 			services
 				.AddDenebMqModule()
@@ -49,7 +51,8 @@ namespace Deneb.Api.Root
 				.ValidateMapperConfiguration()
 				.AddSwagger("Deneb API v1")
 				.AddExceptionHandling()
-				.SubscribeToRabbitQueue(InterserviceQueueTypeEnum.Deneb);
+				.SubscribeToRabbitQueue(InterserviceQueueTypeEnum.Deneb)
+				.AddCors();
 
 			app.UseRouting();
 

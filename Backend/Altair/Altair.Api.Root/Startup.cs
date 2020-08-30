@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Stars.Api.Constants;
 using Stars.Api.Handlers;
 using Stars.Api.Root.Extensions;
+using Stars.Api.Root.Modules;
 using Stars.Business.Modules;
 using Stars.Core.Modules;
 using Stars.Core.Services.Interfaces;
@@ -23,7 +24,8 @@ namespace Altair.Api.Root
 				.AddStarsCoreModule()
 				.AddStarsLoggerModule()
 				.AddStarsBusinessModule()
-				.AddStarsRabbitModule();
+				.AddStarsRabbitModule()
+				.AddStarsCorsModule();
 
 			services
 				.AddAltairBusinessModule()
@@ -54,7 +56,8 @@ namespace Altair.Api.Root
 				.ValidateMapperConfiguration()
 				.AddSwagger("Altair API v1")
 				.AddExceptionHandling()
-				.CreateRabbitConnection();
+				.CreateRabbitConnection()
+				.AddCors();
 
 			app.UseRouting();
 			app.UseAuthorization();

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Stars.Api.Dto.Common;
+using Stars.Api.Root.Constants;
 using Stars.Business.Enums;
 using Stars.Business.Services.Interfaces;
 using Stars.Core.Exceptions;
@@ -110,6 +111,16 @@ namespace Stars.Api.Root.Extensions
 			var rabbitConsumptionService = app.ApplicationServices.GetService<IRabbitConsumptionService>();
 
 			rabbitConsumptionService.SubscribeToQueue(queueType);
+
+			return app;
+		}
+
+		/// <summary>
+		/// Добавить настроенный CORS middleware
+		/// </summary>
+		public static IApplicationBuilder AddCors(this IApplicationBuilder app)
+		{
+			app.UseCors(CorsPolicyConstants.DEFAULT);
 
 			return app;
 		}
